@@ -1,5 +1,5 @@
 @echo off
-set currver=0.7
+set currver=0.8
 :start
 cd > %USERPROFILE%\AppData\Local\Temp\direc
 set /p direc= < %USERPROFILE%\AppData\Local\Temp\direc
