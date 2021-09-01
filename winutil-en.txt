@@ -19,8 +19,11 @@ set pid=blank
 set usepid=blank
 set delete=blank
 set correct=blank
+goto start2
+
+:start2
 cls
-echo WinUtil v0.5 Beta
+echo WinUtil v0.9b Beta
 echo Tool by Stevee
 echo Please type in your choice, then press enter.
 echo.
@@ -34,7 +37,9 @@ echo [4] Delete a file/folder of your choice.
 echo.
 echo [5] Enter/Change/Create a quick access folder.
 echo.
-echo [6] Log every file on a folder.
+echo [6] Log every file on a folder..
+echo.
+echo [7] Quick File Downloader (Faster than normal downloads!)
 echo Press anything else to close the program.
 echo Waiting for input...
 set /p util=""
@@ -45,7 +50,25 @@ if /i %UTIL%==3 (goto 3)
 if /i %UTIL%==4 (goto 4)
 if /i %UTIL%==5 (goto 5)
 if /i %UTIL%==6 (goto 6)
+if /i %UTIL%==7 (goto 7)
+if /i %UTIL%==i (goto input)
 if /i %UTIL%==d (goto debug) else (goto bye)
+
+:input
+echo Welcome to the secret custom variable set menu.
+echo What variable do you want to edit? (If you have
+echo access to this section, you must know the 
+echo variables you're editing.)
+set /p vartoedit=""
+echo What would you like to set the variable as?
+set /p varsetas=""
+echo Changing variables...
+set %VARTOEDIT%=%VARSETAS%
+echo Done.
+echo Sending you back to the main menu... Press any
+echo key to go back.
+pause >nul
+goto start2
 
 :debug
 if %ISDEBUG%==true (goto debugoff)
@@ -141,6 +164,7 @@ set /p choice=""
 if %CHOICE%==1 (goto start) else (goto bye)
 
 :5
+set dir=<%USERPROFILE%\AppData\Local\Temp\winutil-quickfolder.bat
 cls
 set quick=blank
 echo Welcome to the quick access menu.
@@ -176,7 +200,8 @@ echo Opening your folder to check if it exists...
 call %USERPROFILE%\AppData\Local\Temp\winutil-quickfolder.bat
 echo Is it correct? [Y/N]
 set /p correct=""
-if /i %CORRECT%==y (goto 5create2) else (goto 5create)
+if /i %CORRECT%==y (goto 5create2)
+if /i %CORRECT%==n (goto 5create) else (goto fail)
 
 :5create2
 echo Done! Press [1] to go back to the multiutil menu. Press anything else to close the program.
@@ -201,13 +226,16 @@ goto 5
 
 :5check
 echo Current folder path: %DIR%
-if exist %USERPROFILE%\AppData\Local\Temp\winutil-quickfolder.bat (echo Does the batch exist? Yes.) else (echo Does the batch exist? No.)
+if exist %USERPROFILE%\AppData\Local\Temp\winutil-quickfolder.bat (echo Does the loader exist? Yes.) else (echo Does the loader exist? No.)
 echo Press anything to go back to the quick access menu.
 pause >nul
 goto 5
 
 :6
 cls
+set logfold=blank
+set logfoldsave=blank
+set logfoldtxt=blank
 echo Folder to log? (Insert full path!)
 set /p logfold=""
 echo Where to save logged text file? (Insert full path!)
@@ -219,17 +247,96 @@ echo Done! Press [1] to go back to the multiutil menu. Press anything else to cl
 set /p choice=""
 if %CHOICE%==1 (goto start) else (goto bye)
 
+:7
+cls
+set filechoice=blank
+echo Welcome to the Quick File Downloader. Before continuing, make sure you have the following:
+echo.
+echo 1. A direct download URL. [MUST BE A DIRECT LINK, ELSE PROBLEMS MAY OCCUR!]
+echo 2. Save folder path.
+echo Press [1] to continue with the process.
+echo Press [2] to get a quick tutorial on how to get a direct link.
+set /p filechoice=""
+if %FILECHOICE%==1 (goto 7cont)
+if %FILECHOICE%==2 (goto 7tut) else (goto fail)
+
+:7cont
+echo Direct link:
+set /p durl=""
+echo Save as (include full path):
+set /p dfile=""
+certutil -urlcache -split -f %durl% %dfile%
+echo Done! Press [1] to go back to the multiutil menu. Press anything else to close the program.
+set /p choice=""
+if %CHOICE%==1 (goto start) else (goto bye)
+
+:7tut
+cls
+set tutorialchoice=blank
+echo Welcome to the direct link tutorial. What browser do you use? (The procedure is pretty similar for each one, but if you don't know much about what you're doing, it's recommended you follow the tutorial.)
+echo.
+echo [1] Mozilla Firefox
+echo.
+echo [2] Google Chrome / Brave Browser
+echo.
+echo [3] Opera / Opera GX
+set /p tutorialchoice=""
+if %TUTORIALCHOICE%==1 (goto 7firefox)
+if %TUTORIALCHOICE%==2 (goto 7google)
+if %TUTORIALCHOICE%==3 (goto 7opera)
+if %TUTORIALCHOICE%==4 (goto 7brave) else (goto fail)
+
+:7firefox
+cls
+echo 1. Open Firefox, then start a download via normal means. (Just download it as you would usually do.)
+echo 2. Right click on the file itself. A menu should appear. Click "Copy Download Link".
+echo 2.5 Cancel the download as soon as you've got the download link. This is done to prevent massive network load.
+echo 3. Paste the link as the direct link in this program.
+echo.
+echo Press any key to go back to the quick downloader menu.
+pause >nul
+goto 7
+
+:7google
+cls
+echo Keep in mind that, while both Google Chrome and Brave Browser look differently, they work the same way.
+echo 1. Open Google Chrome/Brave Browser, then start a download via normal means. (Just download it as you would usually do.)
+echo 2. Click "Show All".
+echo 3. You should see a list of all of your downloads. Under the name of the one we're searching for, you should see a link. Right click it, and press "Copy link address."
+echo 3.5 Cancel the download as soon as you've got the download link. This is done to prevent massive network load.
+echo 4. Paste the link as the direct link in this program.
+echo.
+echo Press any key to go back to the quick downloader menu.
+pause >nul
+goto 7
+
+:7opera
+cls
+echo 1. Open Opera, then start a download via normal means. (Just download it as you would usually do.)
+echo 2. Click on the little download icon, then "Show More".
+echo 3. You should see a list of all of your downloads. Under the name of the one we're searching for, you should see a link. Right click it, and press "Copy download address."
+echo 3.5 Cancel the download as soon as you've got the download link. This is done to prevent massive network load.
+echo 4. Paste the link as the direct link in this program.
+echo.
+echo Press any key to go back to the quick downloader menu.
+pause >nul
+goto 7
+
 :bye
 cls
 exit
 
 :fail
-cls
+echo That wasn't an option! Press any key to go back to the main menu.
+pause >nul
 goto start
 
 :failsafe
+cls
 echo You find yourself in a strange situation... You have done something the program 
 echo wasn't expecting, and somehow ended up in a secret room. Please report what you
 echo did, to the developer, and he will do his best to fix it. Press any key to leave
-echo the program.
+echo the program, and open the GitHub page.
 pause >nul
+start /max https://github.com/SteveYT77/winutil
+exit
