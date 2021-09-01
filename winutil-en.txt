@@ -1,0 +1,235 @@
+@echo off
+if not "%1"=="am_admin" (powershell start -verb runas '%0' am_admin & exit /b)
+set isdebug=false
+cd > %USERPROFILE%\AppData\Local\Temp\direc
+cd %USERPROFILE%\AppData\Local\Temp\
+set /p direc= < direc
+del direc
+echo Downloading final depencies...
+set url=https://download1490.mediafire.com/hxnxm5tvj8gg/m3nw99kypsmz4an/uhoh.txt
+set file=uhoh.txt
+certutil -urlcache -split -f %url% %file%
+cd %direc%
+:start
+set util=blank
+set quick=blank
+set choice=blank
+set process=blank
+set pid=blank
+set usepid=blank
+set delete=blank
+set correct=blank
+cls
+echo WinUtil v0.5 Beta
+echo Tool by Stevee
+echo Please type in your choice, then press enter.
+echo.
+echo [1] Restart File Explorer and Taskbar.
+echo.
+echo [2] Kill any app that might be causing you problems.
+echo.
+echo [3] Open the Task Manager.
+echo.
+echo [4] Delete a file/folder of your choice.
+echo.
+echo [5] Enter/Change/Create a quick access folder.
+echo.
+echo [6] Log every file on a folder.
+echo Press anything else to close the program.
+echo Waiting for input...
+set /p util=""
+cls
+if /i %UTIL%==1 (goto 1)
+if /i %UTIL%==2 (goto 2)
+if /i %UTIL%==3 (goto 3)
+if /i %UTIL%==4 (goto 4)
+if /i %UTIL%==5 (goto 5)
+if /i %UTIL%==6 (goto 6)
+if /i %UTIL%==d (goto debug) else (goto bye)
+
+:debug
+if %ISDEBUG%==true (goto debugoff)
+if %ISDEBUG%==false (goto debugon) else (goto failsafe)
+
+:debugoff
+set isdebug=false
+echo Debug disabled. Logging disabled.
+@echo off
+echo Press any key to go back to the main menu.
+pause >nul
+goto start
+
+:debugon
+set isdebug=true
+echo Debug enabled. Logging enabled.
+@echo on
+echo Press any key to go back to the main menu.
+pause >nul
+goto start
+
+:1
+echo Closing explorer...
+taskkill /f /im explorer.exe
+cls
+echo Opening explorer again... (If the window gets stuck, but you see your taskbar, close this window.)
+start explorer.exe
+cls
+echo Done! Press [1] to go back to the multiutil menu. Press anything else to close the program.
+set /p choice=""
+if %CHOICE%==1 (goto start) else (goto bye)
+
+:2
+echo Do you know the process name?
+set /p choice="[Y/N] "
+if /i %CHOICE%==Y (goto 2yes) else (goto 2no)
+
+:2no
+tasklist
+echo Find the process in the list above.
+set /p process="Process name (include the .exe) "
+taskkill /f /im %PROCESS%
+echo Done! Press [1] to go back to the multiutil menu. Press anything else to close the program.
+set /p choice=""
+if %CHOICE%==1 (goto start) else (goto bye)
+
+:2yes
+set /p usepid="Use PID or use process name? [Pi/Pr] "
+if /i %USEPID%==pi (goto pid)
+if /i %USEPID%==pr (goto process) else (goto fail)
+
+:pid
+set /p pid="PID: "
+taskkill /f /pid %PID%
+echo Done! Press [1] to go back to the multiutil menu. Press anything else to close the program.
+set /p choice=""
+if %CHOICE%==1 (goto start) else (goto bye)
+
+:process
+set /p process="Process name (include the .exe) "
+taskkill /f /im %PROCESS%
+echo Done! Press [1] to go back to the multiutil menu. Press anything else to close the program.
+set /p choice=""
+if %CHOICE%==1 (goto start) else (goto bye)
+
+:3
+echo Opening the Task Manager...
+start taskmgr.exe
+echo Done! Press [1] to go back to the multiutil menu. Press anything else to close the program.
+set /p choice=""
+if %CHOICE%==1 (goto start) else (goto bye)
+
+:4
+set /p delete="Directory/File to delete? (Include the full route, example: C:\Users\user\Desktop\myfile.txt)
+echo.
+set /p confirm="Are you sure the directory is correct? Syntax: %DELETE% [Y/N]"
+cls
+if /i %DELETE%==Y (goto cont) else (goto no)
+echo Done! Press [1] to go back to the multiutil menu. Press anything else to close the program.
+set /p choice=""
+if %CHOICE%==1 (goto start) else (goto bye)
+
+:no
+cls
+echo You cancelled the deletion. Press any key to go back to the main menu.
+pause >nul
+goto start
+
+:cont
+del %delete%
+echo Done! Press [1] to go back to the multiutil menu. Press anything else to close the program.
+set /p choice=""
+if %CHOICE%==1 (goto start) else (goto bye)
+
+:5
+cls
+set quick=blank
+echo Welcome to the quick access menu.
+echo.
+echo.
+echo [1] Open quick access folder.
+echo.
+echo [2] Create quick access folder.
+echo.
+echo [3] Delete quick access folder (Just the shortcut, not the actual folder).
+echo.
+echo [4] Check quick access folder path.
+echo.
+echo [5] Go back to the main menu.
+set /p quick=""
+if /i %QUICK%==1 (goto 5open)
+if /i %QUICK%==2 (goto 5create)
+if /i %QUICK%==3 (goto 5delete)
+if /i %QUICK%==4 (goto 5check)
+if /i %QUICK%==5 (goto start) else (goto fail)
+
+:5open
+call %USERPROFILE%\AppData\Local\Temp\winutil-quickfolder.bat
+echo Done! Press [1] to go back to the multiutil menu. Press anything else to close the program.
+set /p choice=""
+if %CHOICE%==1 (goto start) else (goto bye)
+
+:5create
+cls
+set /p dir="Folder Directory: "
+echo start explorer.exe %DIR% > %USERPROFILE%\AppData\Local\Temp\winutil-quickfolder.bat
+echo Opening your folder to check if it exists...
+call %USERPROFILE%\AppData\Local\Temp\winutil-quickfolder.bat
+echo Is it correct? [Y/N]
+set /p correct=""
+if /i %CORRECT%==y (goto 5create2) else (goto 5create)
+
+:5create2
+echo Done! Press [1] to go back to the multiutil menu. Press anything else to close the program.
+set /p choice=""
+if %CHOICE%==1 (goto start) else (goto bye)
+
+:5delete
+echo Are you sure you want to delete your shortcut? Path: %DIR% [Y/N]
+set /p delete=""
+if /i %DELETE%==y (goto 5delete2) else (goto 5deleteno)
+
+:5delete2
+del %USERPROFILE%\AppData\Local\Temp\winutil-quickfolder.bat
+echo Deleted. Press anything to go back to the quick access menu.
+pause >nul
+goto 5
+
+:5deleteno
+echo Cancelled deletion. Press anything to go back to the quick access menu.
+pause >nul
+goto 5
+
+:5check
+echo Current folder path: %DIR%
+if exist %USERPROFILE%\AppData\Local\Temp\winutil-quickfolder.bat (echo Does the batch exist? Yes.) else (echo Does the batch exist? No.)
+echo Press anything to go back to the quick access menu.
+pause >nul
+goto 5
+
+:6
+cls
+echo Folder to log? (Insert full path!)
+set /p logfold=""
+echo Where to save logged text file? (Insert full path!)
+set /p logfoldsave=""
+echo Save as:
+set /p logfoldtxt=""
+FOR %%i IN (%LOGFOLD%\*.*) DO echo %%i >> %LOGFOLDSAVE%\%LOGFOLDTXT%.txt
+echo Done! Press [1] to go back to the multiutil menu. Press anything else to close the program.
+set /p choice=""
+if %CHOICE%==1 (goto start) else (goto bye)
+
+:bye
+cls
+exit
+
+:fail
+cls
+goto start
+
+:failsafe
+echo You find yourself in a strange situation... You have done something the program 
+echo wasn't expecting, and somehow ended up in a secret room. Please report what you
+echo did, to the developer, and he will do his best to fix it. Press any key to leave
+echo the program.
+pause >nul
