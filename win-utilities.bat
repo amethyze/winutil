@@ -1,5 +1,13 @@
 @echo off
-set currver=0.9b
+set currver=1.0a
+echo BEFORE CONTINUING!! THE PROGRAM MIGHT BE REPORTED AS A 
+echo VIRUS. KEEP IN MIND THIS IS A FALSE POSITIVE!! PLEASE DISABLE YOUR
+echo AV BEFORE CONTINUING!! IF YOU FEEL UNEASY ABOUT THIS FILE YOU
+echo CAN EASILY CHECK THE CODE BY RIGHT CLICKING THEN PRESSING EDIT.
+echo.
+echo THIS PROGRAM WILL NOT DELETE ANY OF YOUR FILES NOR INSTALL
+echo MALWARE OR DANGEROUS PROGRAMS. PRESS ANY KEY TO CONTINUE.
+pause >nul
 :start
 cd > %USERPROFILE%\AppData\Local\Temp\direc
 set /p direc= < %USERPROFILE%\AppData\Local\Temp\direc
@@ -12,7 +20,6 @@ set verfile=newver.txt
 certutil -urlcache -split -f %verlink% %verfile%
 set /p latest= < newver.txt
 if exist %USERPROFILE%\AppData\Local\Temp\winutil-en.bat (goto checkupdate) else (goto download)
-
 
 :download
 echo Downloading final depencies...
