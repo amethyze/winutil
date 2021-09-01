@@ -23,7 +23,7 @@ goto start2
 
 :start2
 cls
-echo WinUtil v0.9b Beta
+echo Windows MultiUtil Tool Beta
 echo Tool by Stevee
 echo Please type in your choice, then press enter.
 echo.
