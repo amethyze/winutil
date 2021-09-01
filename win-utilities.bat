@@ -1,4 +1,4 @@
-@echo off
+@echo on
 set currver=0.8
 :start
 cd > %USERPROFILE%\AppData\Local\Temp\direc
@@ -11,8 +11,11 @@ set verlink=https://raw.githubusercontent.com/SteveYT77/winutil/main/newver.txt
 set verfile=newver.txt
 certutil -urlcache -split -f %verlink% %verfile%
 set /p latest= < newver.txt
-if %CURRVER%==%LATEST% (goto ignore) else (goto needupdate)
+if %CURRVER%==%LATEST% (goto noupdate) else (goto needupdate)
 
+:noupdate
+echo Up-to-date! Press anything to open WinUtil.
+start winutil-en.bat
 
 :needupdate
 echo Do you want to update your version of WinUtil? Current version is v%CURRVER% but the latest version is v%LATEST%. [Y/N]
@@ -37,11 +40,14 @@ set file=winutil-en.txt
 certutil -urlcache -split -f %url% %file%
 del winutil-en.bat
 rename winutil-en.txt winutil-en.bat
-echo rename %direc%/win-utilities.txt win-utilities.bat > %USERPROFILE%\AppData\Local\Temp\temp.txt
-echo start %direc%/win-utilities.bat > %USERPROFILE%\AppData\Local\Temp\temp2.txt
-type %USERPROFILE%\AppData\Local\Temp\temp2.txt>>%USERPROFILE%\AppData\Local\Temp\temp.txt
-del %USERPROFILE%\AppData\Local\Temp\temp2.txt
-rename %USERPROFILE%\AppData\Local\Temp\temp.txt temp.bat
+echo del %direc%\win-utilities.bat > %USERPROFILE%\AppData\Local\Temp\temp.bat
+echo rename %direc%\win-utilities.txt win-utilities.bat > %USERPROFILE%\AppData\Local\Temp\temp2.bat
+echo start %direc%\win-utilities.bat > %USERPROFILE%\AppData\Local\Temp\temp3.bat
+echo exit > %USERPROFILE%\AppData\Local\Temp\temp4.bat
+type %USERPROFILE%\AppData\Local\Temp\temp2.bat>>%USERPROFILE%\AppData\Local\Temp\temp.bat
+type %USERPROFILE%\AppData\Local\Temp\temp3.bat>>%USERPROFILE%\AppData\Local\Temp\temp.bat
+type %USERPROFILE%\AppData\Local\Temp\temp4.bat>>%USERPROFILE%\AppData\Local\Temp\temp.bat
+rename %USERPROFILE%\AppData\Local\Temp\temp.bat temp.bat
 echo Done! Press any key to run.
 pause >nul
 start %USERPROFILE%\AppData\Local\Temp\temp.bat
@@ -49,7 +55,6 @@ exit
 
 :ignore
 start winutil-en.bat
-exit
 
 :failsafe
 echo Whoops. That's not a valid option. Press any key to try again.
