@@ -1,2 +1,6 @@
 # Windows Multi-Utilities Tool
+
+# Welcome to the Windows Multi-Utilities tool webpage!
+### If you would like to know more about our project, continue reading.
+
 ![winutil](https://user-images.githubusercontent.com/77215030/131756080-830f8c7f-8aa4-4980-8ebe-4aa5904842a8.png "WinUtil logo")
