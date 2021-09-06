@@ -37,7 +37,7 @@ echo [4] Delete a file/folder of your choice.
 echo.
 echo [5] Enter/Change/Create a quick access folder.
 echo.
-echo [6] Log every file on a folder..
+echo [6] Log every existing file on a folder.
 echo.
 echo [7] Quick File Downloader (Faster than normal downloads!)
 echo Press anything else to close the program.
@@ -164,7 +164,7 @@ set /p choice=""
 if %CHOICE%==1 (goto start) else (goto bye)
 
 :5
-set dir=<%USERPROFILE%\AppData\Local\Temp\winutil-quickfolder.bat
+set /p dir=<%USERPROFILE%\AppData\Local\Temp\winutil-quickfolder.bat
 cls
 set quick=blank
 echo Welcome to the quick access menu.
