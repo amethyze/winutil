@@ -22,7 +22,7 @@ set /p latest= < newver.txt
 if exist %USERPROFILE%\AppData\Local\Temp\winutil-en.bat (goto checkupdate) else (goto download)
 
 :download
-echo Downloading final depencies...
+echo Downloading final dependencies...
 set dowlink=https://raw.githubusercontent.com/SteveYT77/winutil/main/winutil-en.txt
 set dowfile=winutil-en.bat
 certutil -urlcache -split -f %dowlink% %dowfile%
