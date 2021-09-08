@@ -1,5 +1,5 @@
 @echo off
-set currver=1.2
+set currver=1.3
 echo BEFORE CONTINUING!! THE PROGRAM MIGHT BE REPORTED AS A 
 echo VIRUS. KEEP IN MIND THIS IS A FALSE POSITIVE!! PLEASE DISABLE YOUR
 echo AV BEFORE CONTINUING!! IF YOU FEEL UNEASY ABOUT THIS FILE YOU
@@ -11,7 +11,6 @@ pause >nul
 :start
 cd > %USERPROFILE%\AppData\Local\Temp\direc
 set /p direc= < %USERPROFILE%\AppData\Local\Temp\direc
-del %USERPROFILE%\AppData\Local\Temp\direc
 cd %USERPROFILE%\AppData\Local\Temp\winutil
 echo Downloading dependencies...
 if exist newver.txt (del newver.txt)
@@ -36,7 +35,7 @@ if %CURRVER%==%LATEST% (goto noupdate) else (goto needupdate)
 :noupdate
 echo Up-to-date! Press anything to open WinUtil.
 pause >nul
-start winutil-en.bat
+start %DIREC%\winutil-en.bat
 exit
 
 :needupdate
