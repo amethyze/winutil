@@ -1,12 +1,19 @@
 @echo off
 if not "%1"=="am_admin" (powershell start -verb runas '%0' am_admin & exit /b)
+if exist %USERPROFILE%\AppData\Local\Temp\winutil (goto startprev) else (goto startcreatedir)
+
+:startcreatedir
+mkdir %USERPROFILE%\AppData\Local\Temp\winutil
+goto startprev
+
+:startprev
 set isdebug=false
-cd > %USERPROFILE%\AppData\Local\Temp\direc
-cd %USERPROFILE%\AppData\Local\Temp\
-set /p direc= < direc
-del direc
-echo Downloading final depencies...
-set url=https://download1490.mediafire.com/hxnxm5tvj8gg/m3nw99kypsmz4an/uhoh.txt
+cd > %USERPROFILE%\AppData\Local\Temp\winutil\direc.txt
+cd %USERPROFILE%\AppData\Local\Temp\winutil\
+set direc= < direc.txt
+del direc.txt
+echo Downloading final dependencies...
+set url=https://raw.githubusercontent.com/SteveYT77/winutil/main/winutil-media/uhoh.txt
 set file=uhoh.txt
 certutil -urlcache -split -f %url% %file%
 cd %direc%
@@ -19,11 +26,12 @@ set pid=blank
 set usepid=blank
 set delete=blank
 set correct=blank
+set urlchoice=blank
 goto start2
 
 :start2
 cls
-echo Windows MultiUtil Tool Beta
+echo WinUtil - Windows MultiUtilities v1.2
 echo Tool by Stevee
 echo Please type in your choice, then press enter.
 echo.
@@ -40,6 +48,8 @@ echo.
 echo [6] Log every existing file on a folder.
 echo.
 echo [7] Quick File Downloader (Faster than normal downloads!)
+echo.
+echo [8] Bookmark Websites 
 echo Press anything else to close the program.
 echo Waiting for input...
 set /p util=""
@@ -51,11 +61,14 @@ if /i %UTIL%==4 (goto 4)
 if /i %UTIL%==5 (goto 5)
 if /i %UTIL%==6 (goto 6)
 if /i %UTIL%==7 (goto 7)
+if /i %UTIL%==8 (goto 8)
 if /i %UTIL%==i (goto input)
 if /i %UTIL%==d (goto debug) else (goto bye)
 
 :input
-echo Welcome to the secret custom variable set menu.
+set "vartoedit= "
+set "varsetas= "
+echo Welcome to the secret variable menu.
 echo What variable do you want to edit? (If you have
 echo access to this section, you should know the 
 echo variables you're editing.)
@@ -150,7 +163,7 @@ if /i %DELETE%==Y (goto cont) else (goto no)
 
 :no
 cls
-echo You cancelled the deletion. Press any key to go back to the main menu.
+echo You canceled the deletion. Press any key to go back to the main menu.
 pause >nul
 goto start
 
@@ -161,9 +174,10 @@ set /p choice=""
 if %CHOICE%==1 (goto start) else (goto bye)
 
 :5
-set /p dir=<%USERPROFILE%\AppData\Local\Temp\winutil-quickfolder.bat
+if not exist %USERPROFILE%\AppData\Local\Temp\winutil\winutil-quickfolder.bat (set "dir= ")
+set /p dir=<%USERPROFILE%\AppData\Local\Temp\winutil\winutil-quickfolder.bat
 cls
-set quick=blank
+set "quick= "
 echo Welcome to the quick access menu.
 echo.
 echo.
@@ -173,7 +187,7 @@ echo [2] Create quick access folder.
 echo.
 echo [3] Delete quick access folder (Just the shortcut, not the actual folder).
 echo.
-echo [4] Check quick access folder path. [DOESN'T WORK CORRECTLY FOR NOW]
+echo [4] Check quick access folder path.
 echo.
 echo [5] Go back to the main menu.
 set /p quick=""
@@ -184,7 +198,7 @@ if /i %QUICK%==4 (goto 5check)
 if /i %QUICK%==5 (goto start) else (goto fail)
 
 :5open
-call %USERPROFILE%\AppData\Local\Temp\winutil-quickfolder.bat
+call %USERPROFILE%\AppData\Local\Temp\winutil\winutil-quickfolder.bat
 echo The folder should have opened. If it didn't, make sure you already have an existing quick access folder with the option available for it. Press [1] to go back to the multiutil menu. Press anything else to close the program.
 set /p choice=""
 if %CHOICE%==1 (goto start) else (goto bye)
@@ -192,9 +206,9 @@ if %CHOICE%==1 (goto start) else (goto bye)
 :5create
 cls
 set /p dir="Folder Directory: "
-echo start explorer.exe %DIR% > %USERPROFILE%\AppData\Local\Temp\winutil-quickfolder.bat
+echo start explorer.exe %DIR% > %USERPROFILE%\AppData\Local\Temp\winutil\winutil-quickfolder.bat
 echo Opening your folder to check if it exists...
-call %USERPROFILE%\AppData\Local\Temp\winutil-quickfolder.bat
+call %USERPROFILE%\AppData\Local\Temp\winutil\winutil-quickfolder.bat
 echo Is it correct? [Y/N]
 set /p correct=""
 if /i %CORRECT%==y (goto 5create2)
@@ -211,19 +225,19 @@ set /p delete=""
 if /i %DELETE%==y (goto 5delete2) else (goto 5deleteno)
 
 :5delete2
-del %USERPROFILE%\AppData\Local\Temp\winutil-quickfolder.bat
+del %USERPROFILE%\AppData\Local\Temp\winutil\winutil-quickfolder.bat
 echo Deleted. Press anything to go back to the quick access menu.
 pause >nul
 goto 5
 
 :5deleteno
-echo Cancelled deletion. Press anything to go back to the quick access menu.
+echo Canceled deletion. Press anything to go back to the quick access menu.
 pause >nul
 goto 5
 
 :5check
 echo Current folder path: %DIR%
-if exist %USERPROFILE%\AppData\Local\Temp\winutil-quickfolder.bat (echo Does the loader exist? Yes.) else (echo Does the loader exist? No.)
+if exist %USERPROFILE%\AppData\Local\Temp\winutil\winutil-quickfolder.bat (echo Does the loader exist? Yes.) else (echo Does the loader exist? No.)
 echo Press anything to go back to the quick access menu.
 pause >nul
 goto 5
@@ -263,7 +277,7 @@ set /p durl=""
 echo Save as (include full path):
 set /p dfile=""
 certutil -urlcache -split -f %durl% %dfile%
-echo Your download should be finishedl. Else, check the message(s) above to make sure there weren't any errors. Press [1] to go back to the multiutil menu. Press anything else to close the program.
+echo Your download should be finished. Else, check the message(s) above to make sure there weren't any errors. Press [1] to go back to the multiutil menu. Press anything else to close the program.
 set /p choice=""
 if %CHOICE%==1 (goto start) else (goto bye)
 
@@ -319,6 +333,87 @@ echo Press any key to go back to the quick downloader menu.
 pause >nul
 goto 7
 
+:8
+cls
+if exist %USERPROFILE%\AppData\Local\Temp\winutil\winutil-quickurlfav1.bat (set /p URL1=<%USERPROFILE%\AppData\Local\Temp\winutil\winutil-quickurlfav1.bat)
+if exist %USERPROFILE%\AppData\Local\Temp\winutil\winutil-quickurlfav2.bat (set /p URL2=<%USERPROFILE%\AppData\Local\Temp\winutil\winutil-quickurlfav2.bat)
+if exist %USERPROFILE%\AppData\Local\Temp\winutil\winutil-quickurlfav3.bat (set /p URL3=<%USERPROFILE%\AppData\Local\Temp\winutil\winutil-quickurlfav3.bat)
+if exist %USERPROFILE%\AppData\Local\Temp\winutil\winutil-quickurlfav4.bat (set /p URL4=<%USERPROFILE%\AppData\Local\Temp\winutil\winutil-quickurlfav4.bat)
+if exist %USERPROFILE%\AppData\Local\Temp\winutil\winutil-quickurlfav5.bat (set /p URL5=<%USERPROFILE%\AppData\Local\Temp\winutil\winutil-quickurlfav5.bat)
+set urlchoice=nothing
+echo Welcome to the Website Bookmarks menu! Keep your favorite web pages here, and access them easily.
+echo If you don't see anything after the numbers below, that's because you haven't setup the URLs yet. 
+echo.
+echo [1] %URL1%
+echo.
+echo [2] %URL2%
+echo.
+echo [3] %URL3%
+echo.
+echo [4] %URL4%
+echo.
+echo [5] %URL5%
+echo Type [s] with no spaces and no [] to start the setup. (If you already did the setup before, but want to change the bookmarks, choose this option anyways.)
+echo Press anything else to go back to the main menu.
+set /p urlchoice=""
+if %urlchoice%==1 (goto 8a1)
+if %urlchoice%==2 (goto 8a2)
+if %urlchoice%==3 (goto 8a3)
+if %urlchoice%==4 (goto 8a4)
+if %urlchoice%==5 (goto 8a5)
+if /i %urlchoice%==s (goto 8setup) else (goto start)
+
+:8a1
+call %USERPROFILE%\AppData\Local\Temp\winutil\winutil-quickurlfav1.bat
+echo Opened your URL. Press [1] to go back to the multiutil menu. Press anything else to close the program.
+set /p choice=""
+if %CHOICE%==1 (goto start) else (goto bye)
+
+:8a2
+call %USERPROFILE%\AppData\Local\Temp\winutil\winutil-quickurlfav2.bat
+echo Opened your URL. Press [1] to go back to the multiutil menu. Press anything else to close the program.
+set /p choice=""
+if %CHOICE%==1 (goto start) else (goto bye)
+
+:8a3
+call %USERPROFILE%\AppData\Local\Temp\winutil\winutil-quickurlfav3.bat
+echo Opened your URL. Press [1] to go back to the multiutil menu. Press anything else to close the program.
+set /p choice=""
+if %CHOICE%==1 (goto start) else (goto bye)
+
+:8a4
+call %USERPROFILE%\AppData\Local\Temp\winutil\winutil-quickurlfav4.bat
+echo Opened your URL. Press [1] to go back to the multiutil menu. Press anything else to close the program.
+set /p choice=""
+if %CHOICE%==1 (goto start) else (goto bye)
+
+:8a5
+call %USERPROFILE%\AppData\Local\Temp\winutil\winutil-quickurlfav5.bat
+echo Opened your URL. Press [1] to go back to the multiutil menu. Press anything else to close the program.
+set /p choice=""
+if %CHOICE%==1 (goto start) else (goto bye)
+
+:8setup
+cls
+echo Welcome to the setup. What's the first URL you want to set as your favorite? (Include the full URL. Example: www.youtube.com)
+set /p URL1=""
+echo start /max %URL1% > %USERPROFILE%\AppData\Local\Temp\winutil\winutil-quickurlfav1.bat
+echo What's the second URL you want to set as your favorite?
+set /p URL2=""
+echo start /max %URL2% > %USERPROFILE%\AppData\Local\Temp\winutil\winutil-quickurlfav2.bat
+echo What's the third URL you want to set as your favorite?
+set /p URL3=""
+echo start /max %URL3% > %USERPROFILE%\AppData\Local\Temp\winutil\winutil-quickurlfav3.bat
+echo What's the fourth URL you want to set as your favorite?
+set /p URL4=""
+echo start /max %URL4% > %USERPROFILE%\AppData\Local\Temp\winutil\winutil-quickurlfav4.bat
+echo What's the fifth URL you want to set as your favorite?
+set /p URL5=""
+echo start /max %URL5% > %USERPROFILE%\AppData\Local\Temp\winutil\winutil-quickurlfav5.bat
+echo Finished the Bookmarks setup. Press any key to go back to the Website Bookmarks menu. 
+pause >nul
+goto 8
+
 :bye
 cls
 exit
@@ -336,4 +431,5 @@ echo did, to the developer, and he will do his best to fix it. Press any key to 
 echo the program, and open the GitHub page.
 pause >nul
 start /max https://github.com/SteveYT77/winutil
+start notepad.exe %USERPROFILE%\AppData\Local\Temp\winutil\uhoh.txt
 exit
