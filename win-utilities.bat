@@ -12,14 +12,14 @@ pause >nul
 cd > %USERPROFILE%\AppData\Local\Temp\direc
 set /p direc= < %USERPROFILE%\AppData\Local\Temp\direc
 del %USERPROFILE%\AppData\Local\Temp\direc
-cd %USERPROFILE%\AppData\Local\Temp\
+cd %USERPROFILE%\AppData\Local\Temp\winutil
 echo Downloading dependencies...
-del newver.txt
+if exist newver.txt (del newver.txt)
 set verlink=https://raw.githubusercontent.com/SteveYT77/winutil/main/newver.txt 
 set verfile=newver.txt
 certutil -urlcache -split -f %verlink% %verfile%
 set /p latest= < newver.txt
-if exist %USERPROFILE%\AppData\Local\Temp\winutil-en.bat (goto checkupdate) else (goto download)
+if exist %DIREC%\winutil-en.bat (goto checkupdate) else (goto download)
 
 :download
 echo Downloading final dependencies...
@@ -35,6 +35,7 @@ if %CURRVER%==%LATEST% (goto noupdate) else (goto needupdate)
 
 :noupdate
 echo Up-to-date! Press anything to open WinUtil.
+pause >nul
 start winutil-en.bat
 exit
 
