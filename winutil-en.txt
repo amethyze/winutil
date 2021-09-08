@@ -57,7 +57,7 @@ if /i %UTIL%==d (goto debug) else (goto bye)
 :input
 echo Welcome to the secret custom variable set menu.
 echo What variable do you want to edit? (If you have
-echo access to this section, you must know the 
+echo access to this section, you should know the 
 echo variables you're editing.)
 set /p vartoedit=""
 echo What would you like to set the variable as?
@@ -97,7 +97,7 @@ cls
 echo Opening explorer again... (If the window gets stuck, but you see your taskbar, close this window.)
 start explorer.exe
 cls
-echo Done! Press [1] to go back to the multiutil menu. Press anything else to close the program.
+echo Explorer closed. Press [1] to go back to the multiutil menu. Press anything else to close the program.
 set /p choice=""
 if %CHOICE%==1 (goto start) else (goto bye)
 
@@ -111,7 +111,7 @@ tasklist
 echo Find the process in the list above.
 set /p process="Process name (include the .exe) "
 taskkill /f /im %PROCESS%
-echo Done! Press [1] to go back to the multiutil menu. Press anything else to close the program.
+echo The program should have closed. Else, check the message above to check for any errors. Press [1] to go back to the multiutil menu. Press anything else to close the program.
 set /p choice=""
 if %CHOICE%==1 (goto start) else (goto bye)
 
@@ -123,21 +123,21 @@ if /i %USEPID%==pr (goto process) else (goto fail)
 :pid
 set /p pid="PID: "
 taskkill /f /pid %PID%
-echo Done! Press [1] to go back to the multiutil menu. Press anything else to close the program.
+echo The program should have closed. Else, check the message above to check for any errors. Press [1] to go back to the multiutil menu. Press anything else to close the program.
 set /p choice=""
 if %CHOICE%==1 (goto start) else (goto bye)
 
 :process
 set /p process="Process name (include the .exe) "
 taskkill /f /im %PROCESS%
-echo Done! Press [1] to go back to the multiutil menu. Press anything else to close the program.
+echo The program should have closed. Else, check the message(s) above to make sure there weren't any errors. Press [1] to go back to the multiutil menu. Press anything else to close the program.
 set /p choice=""
 if %CHOICE%==1 (goto start) else (goto bye)
 
 :3
 echo Opening the Task Manager...
 start taskmgr.exe
-echo Done! Press [1] to go back to the multiutil menu. Press anything else to close the program.
+echo Task manager has opened. Press [1] to go back to the multiutil menu. Press anything else to close the program.
 set /p choice=""
 if %CHOICE%==1 (goto start) else (goto bye)
 
@@ -147,9 +147,6 @@ echo.
 set /p confirm="Are you sure the directory is correct? Syntax: %DELETE% [Y/N]"
 cls
 if /i %DELETE%==Y (goto cont) else (goto no)
-echo Done! Press [1] to go back to the multiutil menu. Press anything else to close the program.
-set /p choice=""
-if %CHOICE%==1 (goto start) else (goto bye)
 
 :no
 cls
@@ -159,7 +156,7 @@ goto start
 
 :cont
 del %delete%
-echo Done! Press [1] to go back to the multiutil menu. Press anything else to close the program.
+echo Deletion should be done. Else, check the message(s) above to make sure there weren't any errors. Press [1] to go back to the multiutil menu. Press anything else to close the program.
 set /p choice=""
 if %CHOICE%==1 (goto start) else (goto bye)
 
@@ -176,7 +173,7 @@ echo [2] Create quick access folder.
 echo.
 echo [3] Delete quick access folder (Just the shortcut, not the actual folder).
 echo.
-echo [4] Check quick access folder path.
+echo [4] Check quick access folder path. [DOESN'T WORK CORRECTLY FOR NOW]
 echo.
 echo [5] Go back to the main menu.
 set /p quick=""
@@ -188,7 +185,7 @@ if /i %QUICK%==5 (goto start) else (goto fail)
 
 :5open
 call %USERPROFILE%\AppData\Local\Temp\winutil-quickfolder.bat
-echo Done! Press [1] to go back to the multiutil menu. Press anything else to close the program.
+echo The folder should have opened. If it didn't, make sure you already have an existing quick access folder with the option available for it. Press [1] to go back to the multiutil menu. Press anything else to close the program.
 set /p choice=""
 if %CHOICE%==1 (goto start) else (goto bye)
 
@@ -204,7 +201,7 @@ if /i %CORRECT%==y (goto 5create2)
 if /i %CORRECT%==n (goto 5create) else (goto fail)
 
 :5create2
-echo Done! Press [1] to go back to the multiutil menu. Press anything else to close the program.
+echo Completed! Press [1] to go back to the multiutil menu. Press anything else to close the program.
 set /p choice=""
 if %CHOICE%==1 (goto start) else (goto bye)
 
@@ -243,7 +240,7 @@ set /p logfoldsave=""
 echo Save as:
 set /p logfoldtxt=""
 FOR %%i IN (%LOGFOLD%\*.*) DO echo %%i >> %LOGFOLDSAVE%\%LOGFOLDTXT%.txt
-echo Done! Press [1] to go back to the multiutil menu. Press anything else to close the program.
+echo The file should have been created. Else, check the message(s) above to make sure there weren't any errors. Press [1] to go back to the multiutil menu. Press anything else to close the program.
 set /p choice=""
 if %CHOICE%==1 (goto start) else (goto bye)
 
@@ -266,7 +263,7 @@ set /p durl=""
 echo Save as (include full path):
 set /p dfile=""
 certutil -urlcache -split -f %durl% %dfile%
-echo Done! Press [1] to go back to the multiutil menu. Press anything else to close the program.
+echo Your download should be finishedl. Else, check the message(s) above to make sure there weren't any errors. Press [1] to go back to the multiutil menu. Press anything else to close the program.
 set /p choice=""
 if %CHOICE%==1 (goto start) else (goto bye)
 
