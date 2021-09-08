@@ -1,6 +1,6 @@
 # Windows Multi-Utilities Tool
 
-# Welcome to our GitHub!
+### Welcome to our GitHub!
 #### If you would like to know more about our project, continue reading.
 ### [More info about the Developer here](https://my.bio/steveewastaken)
 
