@@ -13,4 +13,5 @@ For example, ***quickly opening a folder that is nested under lots of other fold
 This, of course, is still a work in progress. We hope that soon, this becomes a bigger program than what we currently are, and that we can help tons of users that might need.
 
 Thanks for using WinUtil!
-[Last updated: 07/09/2021]
+
+[This readme was last updated on: 07/09/2021]
