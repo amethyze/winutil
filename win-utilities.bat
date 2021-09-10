@@ -1,5 +1,5 @@
 @echo off
-set currver=1.3
+set currver=1.3.1
 echo BEFORE CONTINUING!! THE PROGRAM MIGHT BE REPORTED AS A 
 echo VIRUS. KEEP IN MIND THIS IS A FALSE POSITIVE!! PLEASE DISABLE YOUR
 echo AV BEFORE CONTINUING!! IF YOU FEEL UNEASY ABOUT THIS FILE YOU
@@ -21,6 +21,7 @@ set /p latest= < newver.txt
 if exist %DIREC%\winutil-en.bat (goto checkupdate) else (goto download)
 
 :download
+cd %DIREC%
 echo Downloading final dependencies...
 set dowlink=https://raw.githubusercontent.com/SteveYT77/winutil/main/winutil-en.txt
 set dowfile=winutil-en.bat
@@ -69,7 +70,7 @@ type %USERPROFILE%\AppData\Local\Temp\temp2.bat>>%USERPROFILE%\AppData\Local\Tem
 type %USERPROFILE%\AppData\Local\Temp\temp3.bat>>%USERPROFILE%\AppData\Local\Temp\temp.bat
 type %USERPROFILE%\AppData\Local\Temp\temp4.bat>>%USERPROFILE%\AppData\Local\Temp\temp.bat
 rename %USERPROFILE%\AppData\Local\Temp\temp.bat temp.bat
-echo Done! Press any key to run.
+echo Done! Press any key to run. Don't delete nor open the win-utilities.txt file. Let it disappear by itself.
 pause >nul
 start %USERPROFILE%\AppData\Local\Temp\temp.bat
 exit
