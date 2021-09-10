@@ -31,7 +31,7 @@ goto start2
 
 :start2
 cls
-echo WinUtil - Windows MultiUtilities v1.2
+echo WinUtil - Windows MultiUtilities v1.3.1
 echo Tool by Stevee
 echo Please type in your choice, then press enter.
 echo.
