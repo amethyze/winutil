@@ -14,4 +14,4 @@ This, of course, is still a work in progress. We hope that soon, this becomes a 
 
 Thanks for using WinUtil!
 
-[This readme was last updated on: 07/09/2021]
+[This readme was last updated on: 16/09/2021]
