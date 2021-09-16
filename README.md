@@ -8,7 +8,7 @@ The Windows Multi Utilities (or WinUtil for short) is a small project made to ma
 
 For example, ***quickly opening a folder that is nested under lots of other folders, or maybe even restart their file explorer if it's frozen.***
 
-![The UI can be seen here.](https://raw.githubusercontent.com/SteveYT77/winutil/main/winutil-media/ui.png "The look of the GUI.")
+![The UI can be seen here. ](https://raw.githubusercontent.com/SteveYT77/winutil/main/winutil-media/ui.png "The look of the GUI.")
 
 This, of course, is still a work in progress. We hope that soon, this becomes a bigger program than what we currently are, and that we can help tons of users that might need.
 
