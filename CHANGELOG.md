@@ -14,3 +14,7 @@
 1. Fixed quick folder path checker not showing properly.
 2. Added a Page Bookmarks option.
 3. Now all of winutil's temp files are saved in it's separate folder, to prevent clutter.
+
+# 25/09/2021 - [UNRELEASED] Update 2.0
+
+1. GUI Update! Making it more user-friendly for everyone, using C#.
