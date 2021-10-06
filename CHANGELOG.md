@@ -23,8 +23,13 @@
 2. New small welcome screen.
 3. The app now tells you what time it is. (Just in case, you never know!)
 
-# [UNRELEASED] v1.4.1
+# v1.5
 1. Added a new options menu, with less clutter issues.
+2. Deprecated updater
+3. Code cleaning
+
+# v1.5.1
+1. Bugfixes
 
 # [UNRELEASED] Update GUI
 1. GUI Update! Making it more user-friendly for everyone, using C#.
