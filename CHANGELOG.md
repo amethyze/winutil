@@ -36,6 +36,3 @@
 2. Enhanced Text Reading
 3. EXE instead of BAT
 4. More bugfixes
-
-# [UNRELEASED] Update GUI
-1. GUI Update! Making it more user-friendly for everyone, using C#.
