@@ -34,5 +34,5 @@
 # 11/10/2021 - v1.6
 1. Super Shortcut Maker
 2. Enhanced Text Reading
-3. EXE instead of BAT
+~~3. EXE instead of BAT~~ Scrapped due to compatibility problems
 4. More bugfixes
