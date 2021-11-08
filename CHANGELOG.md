@@ -23,12 +23,12 @@
 2. New small welcome screen.
 3. The app now tells you what time it is. (Just in case, you never know!)
 
-# 02/10/2021 v1.5
+# 02/10/2021 - v1.5
 1. Added a new options menu, with less clutter issues.
 2. Deprecated updater
 3. Code cleaning
 
-# 05/10/2021 v1.5.1
+# 05/10/2021 - v1.5.1
 1. Bugfixes
 
 # 11/10/2021 - v1.6
@@ -37,6 +37,6 @@
 ~~3. EXE instead of BAT~~ Scrapped due to compatibility problems
 4. More bugfixes
 
-# [Unreleased] - v1.7
+# [Unreleased] - v1.6.1
 1. Even faster downloader
 2. Fixed more typos
