@@ -40,3 +40,5 @@
 # [Unreleased] - v1.6.1
 1. Even faster downloader
 2. Fixed more typos
+3. Overhauled the Main Menu
+4. Cleaned the code for settings
