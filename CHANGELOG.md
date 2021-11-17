@@ -34,11 +34,13 @@
 # 11/10/2021 - v1.6
 1. Super Shortcut Maker
 2. Enhanced Text Reading
-~~3. EXE instead of BAT~~ Scrapped due to compatibility problems
-4. More bugfixes
+3. More bugfixes
 
-# [Unreleased] - v1.6.1
+# [Prerelease Only] - v1.6.1
 1. Even faster downloader
 2. Fixed more typos
 3. Overhauled the Main Menu
 4. Cleaned the code for settings
+
+# [Dev Only] - v1.6.1
+1. More than just one Quick Access Shortcut
