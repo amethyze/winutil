@@ -36,11 +36,11 @@
 2. Enhanced Text Reading
 3. More bugfixes
 
-# [Prerelease Only] - v1.6.1
+# [Prerelease Only] - v1.7
 1. Even faster downloader
 2. Fixed more typos
 3. Overhauled the Main Menu
 4. Cleaned the code for settings
-
-# [Dev Only] - v1.6.1
-1. More than just one Quick Access Shortcut
+5. 5 Quick Access Shortcuts
+6. Quick Folder renamed to Quick Access
+7. Enhanced "Quick Access", making it open files as well, not only folders.
