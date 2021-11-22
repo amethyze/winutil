@@ -36,7 +36,7 @@
 2. Enhanced Text Reading
 3. More bugfixes
 
-# [Prerelease Only] - v1.7
+# 21/11/2021 - v1.7
 1. Even faster downloader
 2. Fixed more typos
 3. Overhauled the Main Menu
