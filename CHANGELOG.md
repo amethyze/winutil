@@ -46,4 +46,4 @@
 7. Enhanced "Quick Access", making it open files as well, not only folders.
 
 # [Dev Only] - v1.7.1
-2. Updater
+1. Updater
