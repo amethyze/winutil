@@ -46,5 +46,4 @@
 7. Enhanced "Quick Access", making it open files as well, not only folders.
 
 # [Dev Only] - v1.7.1
-1. Recommended Tools - A set of tools that the program will suggest to you, you may find them useful.
 2. Updater
