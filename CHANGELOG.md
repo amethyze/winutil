@@ -45,5 +45,8 @@
 6. Quick Folder renamed to Quick Access
 7. Enhanced "Quick Access", making it open files as well, not only folders.
 
-# [Dev Only] - v1.7.1
+# 24/11/2021 - v1.7.1
 1. Updater
+
+# [Pre-release Only] - v1.7.2
+1. Color Settings
