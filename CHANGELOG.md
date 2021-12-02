@@ -50,3 +50,6 @@
 
 # [Pre-release Only] - v1.7.2
 1. Color Settings
+
+# [Dev Only] - v1.7.2
+1. Startup Reminders
