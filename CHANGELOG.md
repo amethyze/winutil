@@ -48,8 +48,6 @@
 # 24/11/2021 - v1.7.1
 1. Updater
 
-# [Pre-release Only] - v1.7.2
+# 02/12/2021 - v1.7.2
 1. Color Settings
-
-# [Dev Only] - v1.7.2
 1. Startup Reminders
