@@ -1,8 +1,10 @@
 # Windows Multi-Utilities Tool
 
+## As of April 22nd, WinUtil has been discontinued. No more updates will be published, as I will no longer be working on this project. Thank you.
+
 ### Welcome to our GitHub!
 #### If you would like to know more about our project, please continue reading.
-##### [More info about the Developer here](https://my.bio/steveewastaken)
+#### [More info about the Developer here](https://my.bio/steveewastaken)
 
 The Windows Multi Utilities (or WinUtil for short) is a small project made to make things easier for those who don't know a lot about *command prompt, coding, and stuff like that.* Of course, this thing can't do magic, but it can do lots of stuff that users might want to shorten, or make easier! 
 
@@ -14,4 +16,4 @@ This, of course, is still a work in progress. We hope that soon, this becomes a 
 
 Thanks for using WinUtil!
 
-[This readme was last updated on: 23/11/2021]
+[This readme was last updated on: 22/04/2022]
