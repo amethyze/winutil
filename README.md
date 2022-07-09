@@ -1,6 +1,7 @@
 # Windows Multi-Utilities Tool
-
-## As of April 22nd, WinUtil has been discontinued. No more updates will be published, as I will no longer be working on this project. Thank you.
+---
+### Get ready for what's coming soon! WinUtil is coming back with a new fresh look, better than ever before!
+---
 
 ### Welcome to our GitHub!
 #### If you would like to know more about our project, please continue reading.
@@ -16,4 +17,4 @@ This, of course, is still a work in progress. We hope that soon, this becomes a 
 
 Thanks for using WinUtil!
 
-[This readme was last updated on: 22/04/2022]
+[This readme was last updated on: 09/07/2022]
