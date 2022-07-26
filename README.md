@@ -1,7 +1,6 @@
 # Windows Multi-Utilities Tool
-![Logo](https://github.com/SteveeWasTaken/winutil/blob/main/winutil-media/winutil.png)
 ---
-### Get ready for what's coming soon! WinUtil 2.0 will be back with a fresh new look, better than ever before!
+### The source code for WinUtil 2.0 is now public! However, it's highly unstable and really buggy, so acompiled version is not out yet. If you wish, you can compile the code yourself and try out the latest features while we finish the full release. The design is not finished yet, and most things are missing! We do NOT give support for the source code yet, do NOT ask us how to compile it or to fix any bugs. The rest of this README will not be updated until the stable version is ready. Thank you!
 ---
 
 ### Welcome to our GitHub!
@@ -14,5 +13,3 @@ For example, ***quickly opening a folder that is nested under lots of other fold
 This, of course, is still a work in progress. We hope that soon, this becomes a bigger program than what we currently are, and that we can help tons of users that might need.
 
 Thanks for using WinUtil!
-
-[This readme was last updated on: 09/07/2022]

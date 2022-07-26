@@ -1,0 +1,12 @@
+c:\users\steve\source\repos\WinUtil\WinUtil\bin\Release\WinUtil.exe.config
+c:\users\steve\source\repos\WinUtil\WinUtil\bin\Release\WinUtil.exe
+c:\users\steve\source\repos\WinUtil\WinUtil\bin\Release\WinUtil.pdb
+c:\users\steve\source\repos\WinUtil\WinUtil\obj\Release\WinUtil.Form1.resources
+c:\users\steve\source\repos\WinUtil\WinUtil\obj\Release\WinUtil.Properties.Resources.resources
+c:\users\steve\source\repos\WinUtil\WinUtil\obj\Release\WinUtil.csproj.GenerateResource.cache
+c:\users\steve\source\repos\WinUtil\WinUtil\obj\Release\WinUtil.csproj.CoreCompileInputs.cache
+c:\users\steve\source\repos\WinUtil\WinUtil\obj\Release\WinUtil.exe
+c:\users\steve\source\repos\WinUtil\WinUtil\obj\Release\WinUtil.pdb
+c:\users\steve\source\repos\WinUtil\WinUtil\obj\Release\WinUtil.csprojAssemblyReference.cache
+C:\Users\steve\source\repos\WinUtil\WinUtil\obj\Release\WinUtil.Form2.resources
+C:\Users\steve\source\repos\WinUtil\WinUtil\obj\Release\WinUtil.Form3.resources
