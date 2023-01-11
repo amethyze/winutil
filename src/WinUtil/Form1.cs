@@ -23,6 +23,7 @@ namespace WinUtil
 
         string winUtilVer = "2.0.1";
         string winUtilVerXtra = " - Better Settings";
+        long verI = 2;
 
         public static bool IsAdministrator()
         {
@@ -118,7 +119,6 @@ namespace WinUtil
             string[] onlinever = File.ReadAllLines(onlineverpath);
             File.Delete(onlineverpath);
             long onlineverI = long.Parse(onlinever[1]);
-            long verI = 2;
             bool noLangFile = false;
             try
             {
