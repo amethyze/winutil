@@ -21,9 +21,9 @@ namespace WinUtil
             InitializeComponent();
         }
 
-        readonly string winUtilVer = "2.0.1";
-        readonly string winUtilVerXtra = " - Better Settings";
-        readonly long verI = 2;
+        readonly string winUtilVer = "2.0.2";
+        readonly string winUtilVerXtra = " - Important Fixes";
+        readonly long verI = 3;
 
         public static bool IsAdministrator()
         {
