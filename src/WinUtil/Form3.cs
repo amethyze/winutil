@@ -26,9 +26,9 @@ namespace WinUtil
         string txtcolorR = "255";
         string txtcolorG = "255";
         string txtcolorB = "255";
-        string listboxcolR = "255";
-        string listboxcolG = "255";
-        string listboxcolB = "255";
+        string listboxcolR = "0";
+        string listboxcolG = "0";
+        string listboxcolB = "0";
         string buttextR = "255";
         string buttextG = "255";
         string buttextB = "255";
@@ -38,11 +38,12 @@ namespace WinUtil
         bool noFile = false;
         bool noLangFile = false;
         string lang = "";
+        string programpath = Application.StartupPath;
         private void Form3_Load(object sender, EventArgs e)
         {
             try
             {
-                string[] colors = File.ReadAllLines(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "winutil", "settings.win"));
+                string[] colors = File.ReadAllLines(Path.Combine(programpath, "WinUtilSettings", "settings.win"));
             }
             catch (Exception)
             {
@@ -51,7 +52,7 @@ namespace WinUtil
             }
             try
             {
-                lang = File.ReadAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "winutil", "lang.win"));
+                lang = File.ReadAllText(Path.Combine(programpath, "WinUtilSettings", "lang.win"));
             }
             catch (Exception)
             {
@@ -59,7 +60,7 @@ namespace WinUtil
             }
             if (noFile == false)
             {
-                string[] colors = File.ReadAllLines(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "winutil", "settings.win"));
+                string[] colors = File.ReadAllLines(Path.Combine(programpath, "WinUtilSettings", "settings.win"));
                 int bgcolorR = Int32.Parse(colors[0]);
                 int bgcolorG = Int32.Parse(colors[1]);
                 int bgcolorB = Int32.Parse(colors[2]);
@@ -83,6 +84,7 @@ namespace WinUtil
                 button6.ForeColor = Color.FromArgb(buttextR, buttextG, buttextB);
                 button7.ForeColor = Color.FromArgb(buttextR, buttextG, buttextB);
                 button8.ForeColor = Color.FromArgb(buttextR, buttextG, buttextB);
+                button9.ForeColor = Color.FromArgb(buttextR, buttextG, buttextB);
                 button1.BackColor = Color.FromArgb(butbgR, butbgG, butbgB);
                 button2.BackColor = Color.FromArgb(butbgR, butbgG, butbgB);
                 button3.BackColor = Color.FromArgb(butbgR, butbgG, butbgB);
@@ -90,26 +92,22 @@ namespace WinUtil
                 button6.BackColor = Color.FromArgb(butbgR, butbgG, butbgB);
                 button7.BackColor = Color.FromArgb(butbgR, butbgG, butbgB);
                 button8.BackColor = Color.FromArgb(butbgR, butbgG, butbgB);
+                button9.BackColor = Color.FromArgb(butbgR, butbgG, butbgB);
                 label1.ForeColor = Color.FromArgb(txtcolorR, txtcolorG, txtcolorB);
-                linkLabel1.LinkColor = Color.FromArgb(txtcolorR, txtcolorG, txtcolorB);
-                linkLabel2.LinkColor = Color.FromArgb(txtcolorR, txtcolorG, txtcolorB);
-                linkLabel3.LinkColor = Color.FromArgb(txtcolorR, txtcolorG, txtcolorB);
             }
             if (noLangFile == false)
             {
-                lang = File.ReadAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "winutil", "lang.win"));
+                lang = File.ReadAllText(Path.Combine(programpath, "WinUtilSettings", "lang.win"));
                 comboBox1.Text = lang;
                 if (lang == "English")
                 {
                     lang = "EN";
+                    comboBox1.Text = "English";
                 }
                 else if (lang == "Español")
                 {
                     lang = "ES";
-                }
-                else if (lang == "Česky")
-                {
-                    lang = "CZ";
+                    comboBox1.Text = "Español";
                 }
                 var Localization = new Localization();
                 button1.Text = Localization.form3button1(lang);
@@ -125,6 +123,11 @@ namespace WinUtil
                 linkLabel1.Text = Localization.form3url2(lang);
                 linkLabel2.Text = Localization.form3url1(lang);
                 linkLabel3.Text = Localization.form3url3(lang);
+                toolTip1.SetToolTip(button9, Localization.form3button9Help(lang));
+            }
+            else
+            {
+                comboBox1.Text = "English";
             }
         }
 
@@ -156,9 +159,7 @@ namespace WinUtil
             if (MyDialog.ShowDialog() == DialogResult.OK)
             {
 
-                linkLabel1.LinkColor = MyDialog.Color;
-                linkLabel2.LinkColor = MyDialog.Color;
-                linkLabel3.LinkColor = MyDialog.Color;
+                label1.ForeColor = MyDialog.Color;
             }
             txtcolorR = MyDialog.Color.R.ToString();
             txtcolorG = MyDialog.Color.G.ToString();
@@ -173,11 +174,12 @@ namespace WinUtil
 
         private void button2_Click(object sender, EventArgs e)
         {
+
+            string programpath = Application.StartupPath;
             bool test = false;
-            bool langFile = false;
             try
             {
-                string[] colors = File.ReadAllLines(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "winutil", "settings.win"));
+                string[] colors = File.ReadAllLines(Path.Combine(programpath, "WinUtilSettings", "settings.win"));
             }
             catch (Exception)
             {
@@ -189,7 +191,7 @@ namespace WinUtil
             }
             else
             {
-                string[] colors = File.ReadAllLines(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "winutil", "settings.win"));
+                string[] colors = File.ReadAllLines(Path.Combine(programpath, "WinUtilSettings", "settings.win"));
                 if (txtCh != true)
                 {
                     txtcolorR = colors[3];
@@ -222,21 +224,26 @@ namespace WinUtil
                 }
             }
             string[] settingsArray = new string[] { bgcolorR, bgcolorG, bgcolorB, txtcolorR, txtcolorG, txtcolorB, listboxcolR, listboxcolG, listboxcolB, buttextR, buttextG, buttextB, butbgR, butbgG, butbgB};
-            Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "winutil"));
-            var settingsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "winutil", "settings.win");
+            var settingsPath = Path.Combine(programpath, "WinUtilSettings", "settings.win");
             File.WriteAllLines(settingsPath, settingsArray);
             string langDrop = comboBox1.Text;
             try
             {
-                string lang = File.ReadAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "winutil", "lang.win"));
+                string lang = File.ReadAllText(Path.Combine(programpath, "WinUtilSettings", "lang.win"));
             }
             catch (Exception)
             {
-                langFile = true;
             }
-            var langPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "winutil", "lang.win");
+            var langPath = Path.Combine(programpath, "WinUtilSettings", "lang.win");
             File.WriteAllText(langPath, langDrop);
-            System.Windows.Forms.Application.Exit();
+            string programpath2 = System.Windows.Forms.Application.ExecutablePath;
+            string[] arguments = Environment.GetCommandLineArgs().Skip(1).ToArray(); // requires Linq
+            System.Diagnostics.ProcessStartInfo startinfo = new System.Diagnostics.ProcessStartInfo();
+            startinfo.FileName = programpath2;
+            startinfo.UseShellExecute = true;
+            startinfo.Arguments = string.Join(" ", arguments);
+            Process.Start(startinfo);
+            Application.Exit();
         }
 
         private void toolTip1_Popup(object sender, PopupEventArgs e)
@@ -263,12 +270,21 @@ namespace WinUtil
 
         private void button5_Click(object sender, EventArgs e)
         {
+
+            var Localization = new Localization();
             DialogResult delsets;
-            delsets = MessageBox.Show("WARNING: You selected to delete all of your settings. Are you sure you wish to reset your settings? You will lose them forever! (A very long time)", "Reset Settings", MessageBoxButtons.OKCancel);
+            delsets = MessageBox.Show(Localization.form3resetSettings(lang), Localization.form3resetSettingsTitle(lang), MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
             if (delsets == DialogResult.OK)
             {
-                File.Delete(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "winutil", "settings.win"));
-                System.Windows.Forms.Application.Exit();
+                File.Delete(Path.Combine(programpath, "WinUtilSettings", "settings.win"));
+                string programpath2 = System.Windows.Forms.Application.ExecutablePath;
+                string[] arguments = Environment.GetCommandLineArgs().Skip(1).ToArray(); // requires Linq
+                System.Diagnostics.ProcessStartInfo startinfo = new System.Diagnostics.ProcessStartInfo();
+                startinfo.FileName = programpath2;
+                startinfo.UseShellExecute = true;
+                startinfo.Arguments = string.Join(" ", arguments);
+                Process.Start(startinfo);
+                Application.Exit();
             }
         }
 
@@ -289,6 +305,7 @@ namespace WinUtil
                 button6.ForeColor = MyDialog.Color;
                 button7.ForeColor = MyDialog.Color;
                 button8.ForeColor = MyDialog.Color;
+                button9.ForeColor = MyDialog.Color;
             }
             buttextR = MyDialog.Color.R.ToString();
             buttextG = MyDialog.Color.G.ToString();
@@ -312,6 +329,7 @@ namespace WinUtil
                 button6.BackColor = MyDialog.Color;
                 button7.BackColor = MyDialog.Color;
                 button8.BackColor = MyDialog.Color;
+                button9.BackColor = MyDialog.Color;
             }
             butbgR = MyDialog.Color.R.ToString();
             butbgG = MyDialog.Color.G.ToString();
@@ -320,7 +338,7 @@ namespace WinUtil
 
         private void button6_Click(object sender, EventArgs e)
         {
-            Process.Start("explorer.exe", Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "winutil"));
+            Process.Start("explorer.exe", Path.Combine(programpath, "WinUtilSettings"));
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -345,7 +363,93 @@ namespace WinUtil
 
         private void button9_Click(object sender, EventArgs e)
         {
-            new Form4().Show();
+            string programpath = Application.StartupPath;
+            bool test = false;
+            try
+            {
+                string[] colors = File.ReadAllLines(Path.Combine(programpath, "WinUtilSettings", "settings.win"));
+            }
+            catch (Exception)
+            {
+                test = true;
+            }
+            if (test)
+            {
+
+            }
+            else
+            {
+                string[] colors = File.ReadAllLines(Path.Combine(programpath, "WinUtilSettings", "settings.win"));
+                if (txtCh != true)
+                {
+                    txtcolorR = colors[3];
+                    txtcolorG = colors[4];
+                    txtcolorB = colors[5];
+                }
+                if (bgCh != true)
+                {
+                    bgcolorR = colors[0];
+                    bgcolorG = colors[1];
+                    bgcolorB = colors[2];
+                }
+                if (listBoxCh != true)
+                {
+                    listboxcolR = colors[6];
+                    listboxcolG = colors[7];
+                    listboxcolB = colors[8];
+                }
+                if (butTxtCh != true)
+                {
+                    buttextR = colors[9];
+                    buttextG = colors[10];
+                    buttextB = colors[11];
+                }
+                if (butBgCh != true)
+                {
+                    butbgR = colors[12];
+                    butbgG = colors[13];
+                    butbgB = colors[14];
+                }
+            }
+            string[] settingsArray = new string[] { bgcolorR, bgcolorG, bgcolorB, txtcolorR, txtcolorG, txtcolorB, listboxcolR, listboxcolG, listboxcolB, buttextR, buttextG, buttextB, butbgR, butbgG, butbgB };
+            var settingsPath = Path.Combine(programpath, "WinUtilSettings", "settings.win");
+            File.WriteAllLines(settingsPath, settingsArray);
+            string langDrop = comboBox1.Text;
+            try
+            {
+                string lang = File.ReadAllText(Path.Combine(programpath, "WinUtilSettings", "lang.win"));
+            }
+            catch (Exception)
+            {
+            }
+            var langPath = Path.Combine(programpath, "WinUtilSettings", "lang.win");
+            File.WriteAllText(langPath, langDrop);
+            string programpath2 = System.Windows.Forms.Application.ExecutablePath;
+            string[] arguments = Environment.GetCommandLineArgs().Skip(1).ToArray(); // requires Linq
+            System.Diagnostics.ProcessStartInfo startinfo = new System.Diagnostics.ProcessStartInfo();
+            startinfo.FileName = programpath2;
+            startinfo.UseShellExecute = true;
+            startinfo.Verb = "runas";
+            startinfo.Arguments = String.Join(" ", arguments);
+            bool adminYes = true;
+            var Localization = new Localization();
+            try
+            {
+                Process.Start(startinfo);
+            }
+            catch (Exception)
+            {
+                adminYes = false;
+            }
+            if (adminYes)
+            {
+                Application.Exit();
+            }
+            else
+            {
+                MessageBox.Show(Localization.form3failedAdmin(lang), Localization.error(lang), MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
         }
     }
 }

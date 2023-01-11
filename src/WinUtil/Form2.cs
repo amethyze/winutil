@@ -53,24 +53,40 @@ namespace WinUtil
 
         private void button2_Click(object sender, EventArgs e)
         {
+            var Localization = new Localization();
             if (listBox1.Text == "")
             {
-                MessageBox.Show("You haven't selected a program from the list below. Please select one and try again.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Localization.form2empty(lang), Localization.form2emptyTitle(lang), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
                 DialogResult tasks;
-                tasks = MessageBox.Show("The program \"" + listBox1.Text + "\" was selected. Are you sure this is the one you'd like to terminate? (WARNING: If you select a critical process, the computer may malfunction.)", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                tasks = MessageBox.Show(Localization.form2check1(lang) + listBox1.Text + Localization.form2check2(lang), Localization.form2emptyTitle(lang), MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
                 if (tasks == DialogResult.Yes)
                 {
                     string s = listBox1.Text.Substring(0, listBox1.Text.Length - 4);
+                    bool hadError = false;
                     foreach (var process in Process.GetProcessesByName(s))
                     {
-                        process.Kill();
+                        try
+                        {
+                            process.Kill();
+                        }
+                        catch (Exception)
+                        {
+                            if (hadError)
+                            {
+
+                            }
+                            else
+                            {
+                                MessageBox.Show(Localization.form2failedKill(lang), Localization.error(lang), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                hadError = true;
+                            }
+                        }
                     }
                     ListProcesses();
                 }
-                this.Close();
             }
         }
 
@@ -81,11 +97,12 @@ namespace WinUtil
 
         bool noFile = false;
         string lang = "";
+        string programpath = Application.StartupPath;
         private void Form2_Load(object sender, EventArgs e)
         {
             try
             {
-                string[] colors = File.ReadAllLines(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "winutil", "settings.win"));
+                string[] colors = File.ReadAllLines(Path.Combine(programpath, "WinUtilSettings", "settings.win"));
             }
             catch (Exception)
             {
@@ -94,7 +111,7 @@ namespace WinUtil
 
             if (noFile == false)
             {
-                string[] colors = File.ReadAllLines(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "winutil", "settings.win"));
+                string[] colors = File.ReadAllLines(Path.Combine(programpath, "WinUtilSettings", "settings.win"));
                 int bgcolorR = Int32.Parse(colors[0]);
                 int bgcolorG = Int32.Parse(colors[1]);
                 int bgcolorB = Int32.Parse(colors[2]);
@@ -122,15 +139,16 @@ namespace WinUtil
             bool noLangFile = false;
             try
             {
-                lang = File.ReadAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "winutil", "lang.win"));
+                lang = File.ReadAllText(Path.Combine(programpath, "WinUtilSettings", "lang.win"));
             }
             catch (Exception)
             {
                 noLangFile = true;
             }
+            var Localization = new Localization();
             if (noLangFile == false)
             {
-                lang = File.ReadAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "winutil", "lang.win"));
+                lang = File.ReadAllText(Path.Combine(programpath, "WinUtilSettings", "lang.win"));
                 if (lang == "English")
                 {
                     lang = "EN";
@@ -139,15 +157,11 @@ namespace WinUtil
                 {
                     lang = "ES";
                 }
-                else if (lang == "Česky")
-                {
-                    lang = "CZ";
-                }
-                var Localization = new Localization();
                 button2.Text = Localization.form2Kill(lang);
                 button1.Text = Localization.form2Update(lang);
-                this.Text = Localization.form2title(lang);
+                this.Text = Localization.form1taskKill(lang);
                 label1.Text = Localization.form2label(lang);
+
             }
         }
     }

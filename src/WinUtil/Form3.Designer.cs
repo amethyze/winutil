@@ -66,9 +66,9 @@
             // button2
             // 
             this.button2.BackColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(12, 333);
+            this.button2.Location = new System.Drawing.Point(12, 302);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(253, 33);
+            this.button2.Size = new System.Drawing.Size(206, 33);
             this.button2.TabIndex = 1;
             this.button2.Text = "Save And Restart";
             this.button2.UseVisualStyleBackColor = false;
@@ -97,9 +97,8 @@
             this.comboBox1.ItemHeight = 13;
             this.comboBox1.Items.AddRange(new object[] {
             "English",
-            "Español",
-            "Česky"});
-            this.comboBox1.Location = new System.Drawing.Point(12, 207);
+            "Español"});
+            this.comboBox1.Location = new System.Drawing.Point(12, 173);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(253, 21);
             this.comboBox1.TabIndex = 9;
@@ -121,9 +120,9 @@
             // 
             this.button5.BackColor = System.Drawing.Color.DarkRed;
             this.button5.ForeColor = System.Drawing.Color.Red;
-            this.button5.Location = new System.Drawing.Point(12, 372);
+            this.button5.Location = new System.Drawing.Point(12, 341);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(253, 25);
+            this.button5.Size = new System.Drawing.Size(253, 30);
             this.button5.TabIndex = 4;
             this.button5.Text = "Reset Settings";
             this.button5.UseVisualStyleBackColor = false;
@@ -132,7 +131,7 @@
             // button6
             // 
             this.button6.BackColor = System.Drawing.Color.White;
-            this.button6.Location = new System.Drawing.Point(12, 304);
+            this.button6.Location = new System.Drawing.Point(12, 273);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(253, 23);
             this.button6.TabIndex = 5;
@@ -167,10 +166,10 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(12, 179);
+            this.label1.Location = new System.Drawing.Point(8, 145);
             this.label1.Margin = new System.Windows.Forms.Padding(0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(253, 25);
+            this.label1.Size = new System.Drawing.Size(234, 25);
             this.label1.TabIndex = 10;
             this.label1.Text = "Language";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -180,7 +179,7 @@
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLabel1.LinkColor = System.Drawing.Color.Lime;
-            this.linkLabel1.Location = new System.Drawing.Point(12, 281);
+            this.linkLabel1.Location = new System.Drawing.Point(8, 237);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(161, 20);
             this.linkLabel1.TabIndex = 11;
@@ -193,7 +192,7 @@
             this.linkLabel2.AutoSize = true;
             this.linkLabel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLabel2.LinkColor = System.Drawing.Color.Lime;
-            this.linkLabel2.Location = new System.Drawing.Point(12, 261);
+            this.linkLabel2.Location = new System.Drawing.Point(8, 217);
             this.linkLabel2.Name = "linkLabel2";
             this.linkLabel2.Size = new System.Drawing.Size(123, 20);
             this.linkLabel2.TabIndex = 12;
@@ -206,7 +205,7 @@
             this.linkLabel3.AutoSize = true;
             this.linkLabel3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLabel3.LinkColor = System.Drawing.Color.Lime;
-            this.linkLabel3.Location = new System.Drawing.Point(12, 241);
+            this.linkLabel3.Location = new System.Drawing.Point(8, 197);
             this.linkLabel3.Name = "linkLabel3";
             this.linkLabel3.Size = new System.Drawing.Size(156, 20);
             this.linkLabel3.TabIndex = 13;
@@ -217,11 +216,11 @@
             // button9
             // 
             this.button9.BackColor = System.Drawing.Color.White;
-            this.button9.Location = new System.Drawing.Point(12, 148);
+            this.button9.Location = new System.Drawing.Point(224, 302);
             this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(253, 28);
+            this.button9.Size = new System.Drawing.Size(41, 33);
             this.button9.TabIndex = 14;
-            this.button9.Text = "Button Style";
+            this.button9.Text = "!";
             this.button9.UseVisualStyleBackColor = false;
             this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
@@ -230,7 +229,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(277, 409);
+            this.ClientSize = new System.Drawing.Size(277, 382);
             this.Controls.Add(this.button9);
             this.Controls.Add(this.linkLabel3);
             this.Controls.Add(this.linkLabel2);

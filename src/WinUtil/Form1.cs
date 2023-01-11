@@ -53,12 +53,13 @@ namespace WinUtil
                 Application.DoEvents();
             }
         }
-        string lang = "";
+        string lang;
+
         private void button1_Click(object sender, EventArgs e)
         {
             var Localization = new Localization();
             DialogResult explorerRestart;
-            explorerRestart = MessageBox.Show(Localization.form1expRest(lang), Localization.form1expRestTitle(lang), MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
+            explorerRestart = MessageBox.Show(Localization.form1expRest(lang), Localization.form2emptyTitle(lang), MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk);
             if(explorerRestart == DialogResult.Yes)
             {
                 Process.Start("taskkill.exe", "/f /im explorer.exe");
@@ -68,67 +69,95 @@ namespace WinUtil
 
         private void button2_Click(object sender, EventArgs e)
         {
+            var Localization = new Localization();
             if (IsAdministrator())
             {
                 new Form2().Show();
             }
             else
             {
-                MessageBox.Show("debug RE-ADD ADMIN CHECK ONCE DONE TESTING");
-                MessageBox.Show("I'm sorry, but Program Killer can't run without Administrator Privileges. Please, run the application again as Administrator.", "Program Killer", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                new Form2().Show();
+                MessageBox.Show(Localization.form1expProgramKiller(lang), Localization.form1taskKill(lang), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
 
         Color backColorDef = Color.FromArgb(0, 0, 0);
         Color txtColorDef = Color.FromArgb(255, 255, 255);
-        bool noFile = false;
-        string[] colors = { "def" };
-
+        bool noFile;
+        string programpath = Application.StartupPath;
         private void Form1_Load(object sender, EventArgs e)
         {
+            
             // Everything below this line handles the WinUtil updater.
             var onlineverpath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "winutil", "onlinever.win");
+            Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "winutil"));
             WebClient webClient = new WebClient();
-            webClient.DownloadFile("https://raw.githubusercontent.com/SteveeWasTaken/test/main/file.txt", onlineverpath);
+            webClient.DownloadFile("https://github.com/SteveeWasTaken/winutil/raw/main/gitVersion.txt", onlineverpath);
             string[] onlinever = File.ReadAllLines(onlineverpath);
             File.Delete(onlineverpath);
             long onlineUnix = long.Parse(onlinever[1]);
             long verUnix = 1658256685;
+            bool noLangFile = false;
+            try
+            {
+                lang = File.ReadAllText(Path.Combine(programpath, "WinUtilSettings", "lang.win"));
+            }
+            catch (Exception)
+            {
+                noLangFile = true;
+            }
+            if (noLangFile == false)
+            {
+                lang = File.ReadAllText(Path.Combine(programpath, "WinUtilSettings", "lang.win"));
+                if (lang == "English")
+                {
+                    lang = "EN";
+                }
+                else if (lang == "Español")
+                {
+                    lang = "ES";
+                }
+            }
+            else
+            {
+                lang = "EN";
+            }
+            var Localization = new Localization();
             if (onlineUnix > verUnix)
             {
                 DialogResult updatebox;
-                updatebox = MessageBox.Show("You are using an outdated version of WinUtil!\n\nYour Version: " + winUtilVer + winUtilVerXtra + "\nOnline Version: " + onlinever[0] + " " + onlinever[2] + "\n\nDo you wish to update?", "Update Available!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                updatebox = MessageBox.Show(Localization.form1updateAvailable1(lang) + winUtilVer + winUtilVerXtra + Localization.form1updateAvailable2(lang) + onlinever[0] + " " + onlinever[2] + Localization.form1updateAvailable3(lang), Localization.form1updateAvailable4(lang), MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (updatebox == DialogResult.Yes)
                 {
                     Process.Start("https://github.com/SteveeWasTaken/winutil/releases/latest");
-                    System.Windows.Forms.Application.Exit();
+                    Application.Exit();
                 }
             }
             // Everything above this line handles the WinUtil updater.
-            var firstrunpath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "winutil", "firstrun");
+            // Everything below this line handles translations.
+            about.Text = Localization.form1about(lang);
+            settings.Text = Localization.form1settings(lang);
+            startEx.Text = Localization.form1startex(lang);
+            stopEx.Text = Localization.form1stopex(lang);
+            taskmgr.Text = Localization.form1taskmgr(lang);
+            fileDel.Text = Localization.form1fileDel(lang);
+            taskKill.Text = Localization.form1taskKill(lang);
+            toolTip1.SetToolTip(fileDel, Localization.form1fileDelHelp(lang));
+            toolTip1.SetToolTip(taskKill, Localization.form1taskKillHelp(lang));
+            toolTip1.SetToolTip(taskmgr, Localization.form1taskmgrHelp(lang));
+            // Everything above this line handles translations.
+            var firstrunpath = Path.Combine(programpath, "WinUtilSettings", "firstrun");
             try
             {
-                string[] colors = File.ReadAllLines(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "winutil", "settings.win"));
+                string[] colors = File.ReadAllLines(Path.Combine(programpath, "WinUtilSettings", "settings.win"));
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 noFile = true;
 
             }
             if (noFile == false)
             {
-                string[] colors = File.ReadAllLines(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "winutil", "settings.win"));
+                string[] colors = File.ReadAllLines(Path.Combine(programpath, "WinUtilSettings", "settings.win"));
                 int bgcolorR = Int32.Parse(colors[0]);
                 int bgcolorG = Int32.Parse(colors[1]);
                 int bgcolorB = Int32.Parse(colors[2]);
@@ -149,9 +178,9 @@ namespace WinUtil
                 this.BackColor = backColorDef;
                 TitleForm1.ForeColor = txtColorDef;
                 stopEx.BackColor = Color.FromArgb(butbgR, butbgG, butbgB);
-                programKill.BackColor = Color.FromArgb(butbgR, butbgG, butbgB);
+                taskKill.BackColor = Color.FromArgb(butbgR, butbgG, butbgB);
                 stopEx.ForeColor = Color.FromArgb(buttextR, buttextG, buttextB);
-                programKill.ForeColor = Color.FromArgb(buttextR, buttextG, buttextB);
+                taskKill.ForeColor = Color.FromArgb(buttextR, buttextG, buttextB);
                 about.BackColor = Color.FromArgb(butbgR, butbgG, butbgB);
                 taskmgr.BackColor = Color.FromArgb(butbgR, butbgG, butbgB);
                 about.ForeColor = Color.FromArgb(buttextR, buttextG, buttextB);
@@ -162,8 +191,6 @@ namespace WinUtil
                 settings.ForeColor = Color.FromArgb(buttextR, buttextG, buttextB);
                 fileDel.BackColor = Color.FromArgb(butbgR, butbgG, butbgB);
                 fileDel.ForeColor = Color.FromArgb(buttextR, buttextG, buttextB);
-                faq.BackColor = Color.FromArgb(butbgR, butbgG, butbgB);
-                faq.ForeColor = Color.FromArgb(buttextR, buttextG, buttextB);
             }
             try
             {
@@ -171,8 +198,9 @@ namespace WinUtil
             }
             catch (Exception)
             {
-                MessageBox.Show("It seems like this is your first time using WinUtil. I hope you love this program. If you find any bugs or issues, please go to this program's GitHub and tell us more about the issues you found there. Enjoy WinUtil!\n\n-SteveeWasTaken", "Welcome to WinUtil!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                File.WriteAllText(firstrunpath, "");
+                Directory.CreateDirectory(Path.Combine(programpath, "WinUtilSettings"));
+                MessageBox.Show(Localization.form1welcome(lang), Localization.form1welcomeTitle(lang), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                File.WriteAllText(firstrunpath, "54 68 61 6e 6b 20 79 6f 75 20 66 6f 72 20 75 73 69 6e 67 20 57 69 6e 55 74 69 6c 21");
             }
             if (IsAdministrator())
             {
@@ -180,32 +208,7 @@ namespace WinUtil
             }
             else
             {
-                MessageBox.Show("We highly recommend you run WinUtil as administrator.\n\nSome tools will not work properly and might break if not used with administrator. Thank you for using WinUtil!", "Administator Privileges", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            bool noLangFile = false;
-            try
-            {
-                lang = File.ReadAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "winutil", "lang.win"));
-            }
-            catch (Exception)
-            {
-                noLangFile = true;
-            }
-            if (noLangFile == false)
-            {
-                lang = File.ReadAllText(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "winutil", "lang.win"));
-                if (lang == "English")
-                {
-                    lang = "EN";
-                }
-                else if (lang == "Español")
-                {
-                    lang = "ES";
-                }
-                else if (lang == "Česky")
-                {
-                    lang = "CZ";
-                }
+                MessageBox.Show(Localization.form1adminWarn(lang), Localization.form1adminWarnTitle(lang), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
         }
@@ -233,6 +236,7 @@ namespace WinUtil
 
         private void button7_Click(object sender, EventArgs e)
         {
+            var Localization = new Localization();
             if (IsAdministrator())
             {
 
@@ -240,52 +244,30 @@ namespace WinUtil
             else
             {
                 DialogResult deleterAdmin;
-                deleterAdmin = MessageBox.Show("Some files cannot be deleted without administrator access. With administrator access, you can delete more files than in restricted mode, however this does NOT guarantee that you will be able to delete every file, as some are restricted by Windows.", "Administrator Access", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                deleterAdmin = MessageBox.Show(Localization.form1delAdmin(lang), Localization.form1fileDelAdminTitle(lang), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            deleterDialog.Title = Localization.form1fileDelTitle(lang);
             deleterDialog.ShowDialog();
             DialogResult deleterWarn;
             if (deleterDialog.FileName == "")
             {
-                MessageBox.Show("You didn't select a file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(Localization.form1fileDelNo(lang), Localization.error(lang), MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                deleterWarn = MessageBox.Show("The file you selected for deletion is " + deleterDialog.FileName + ". Are you sure this is correct? This isn't reversible!", "File Deleter", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                deleterWarn = MessageBox.Show(Localization.form1fileDelCheck1(lang) + deleterDialog.FileName + Localization.form1fileDelCheck2(lang), Localization.form1fileDel(lang), MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (deleterWarn == DialogResult.Yes)
                 {
                     File.Delete(deleterDialog.FileName);
-                    MessageBox.Show("File deleted successfully.", "File Deleter", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(Localization.form1fileDelOk(lang), Localization.form1fileDel(lang), MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             
         }
 
-        private void button8_Click_1(object sender, EventArgs e)
-        {
-            MessageBox.Show("i forgor to code this xoxo", "Frequently Asked Question", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
         private void TitleForm1_Click(object sender, EventArgs e)
         {
 
-        }
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            DialogResult ss;
-            ss = MessageBox.Show("Are you going to create a Super Folder Shortcut, or a Super File Shortcut? (Yes for Files, No for Folders)", "Super Shortcut", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (ss == DialogResult.Yes)
-            {
-                superFileShortcut.ShowDialog();
-                superShortcutSave.ShowDialog();
-                Process.Start("cmd.exe", "/c mklink " + superShortcutSave.FileName + superFileShortcut.FileName);
-            }
-            else
-            {
-                superFolderShortcut.ShowDialog();
-                superShortcutSave.ShowDialog();
-                Process.Start("cmd.exe", "/c mklink /d " + superShortcutSave.FileName + " " + superFolderShortcut.SelectedPath);
-            }
         }
     }
 }
