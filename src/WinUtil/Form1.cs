@@ -94,8 +94,8 @@ namespace WinUtil
             webClient.DownloadFile("https://github.com/SteveeWasTaken/winutil/raw/main/gitVersion.txt", onlineverpath);
             string[] onlinever = File.ReadAllLines(onlineverpath);
             File.Delete(onlineverpath);
-            long onlineUnix = long.Parse(onlinever[1]);
-            long verUnix = 1658256685;
+            long onlineverI = long.Parse(onlinever[1]);
+            long verI = 1;
             bool noLangFile = false;
             try
             {
@@ -122,7 +122,7 @@ namespace WinUtil
                 lang = "EN";
             }
             var Localization = new Localization();
-            if (onlineUnix > verUnix)
+            if (onlineverI > verI)
             {
                 DialogResult updatebox;
                 updatebox = MessageBox.Show(Localization.form1updateAvailable1(lang) + winUtilVer + winUtilVerXtra + Localization.form1updateAvailable2(lang) + onlinever[0] + " " + onlinever[2] + Localization.form1updateAvailable3(lang), Localization.form1updateAvailable4(lang), MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
