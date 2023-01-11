@@ -141,7 +141,7 @@ namespace WinUtil
             bool noLangFile = false;
             try
             {
-                lang = File.ReadAllText(Path.Combine(programpath, "WinUtilSettings", "lang.win"));
+                lang = File.ReadAllText(Path.Combine(baseAssetsPath, "settings", "lang.win"));
             }
             catch (Exception)
             {
@@ -150,7 +150,7 @@ namespace WinUtil
             var Localization = new Localization();
             if (noLangFile == false)
             {
-                lang = File.ReadAllText(Path.Combine(programpath, "WinUtilSettings", "lang.win"));
+                lang = File.ReadAllText(Path.Combine(baseAssetsPath, "settings", "lang.win"));
                 if (lang == "English")
                 {
                     lang = "EN";

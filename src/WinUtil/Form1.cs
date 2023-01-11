@@ -21,9 +21,9 @@ namespace WinUtil
             InitializeComponent();
         }
 
-        string winUtilVer = "2.0.1";
-        string winUtilVerXtra = " - Better Settings";
-        long verI = 2;
+        readonly string winUtilVer = "2.0.1";
+        readonly string winUtilVerXtra = " - Better Settings";
+        readonly long verI = 2;
 
         public static bool IsAdministrator()
         {
@@ -85,34 +85,12 @@ namespace WinUtil
         Color txtColorDef = Color.FromArgb(255, 255, 255);
         bool noFile;
         string programpath = Application.StartupPath;
-        public string resetSettings()
-        {
-            MessageBox.Show("STARTED RESETSETTINGS");
-            var baseAssetsPath = Path.Combine(programpath, "assets");
-            string[] assetsFileList = Directory.GetFiles(baseAssetsPath, "*", SearchOption.AllDirectories);
-            MessageBox.Show("ASSETSFILELIST LENGTH OF: " + assetsFileList.Length + "\n\nFIRST ARRAY ITEM IS: " + assetsFileList[0]);
-            if (assetsFileList.Length != 0)
-            {
-                for (int i = 0; i < assetsFileList.Length; i++)
-                {
-                    File.Delete(assetsFileList[i]);
-                }
-            }
-            string programpath2 = System.Windows.Forms.Application.ExecutablePath;
-            string[] arguments = Environment.GetCommandLineArgs().Skip(1).ToArray(); // requires Linq
-            System.Diagnostics.ProcessStartInfo startinfo = new System.Diagnostics.ProcessStartInfo();
-            startinfo.FileName = programpath2;
-            startinfo.UseShellExecute = true;
-            startinfo.Arguments = string.Join(" ", arguments);
-            Process.Start(startinfo);
-            Application.Exit();
-            return null;
-        }
         private void Form1_Load(object sender, EventArgs e)
         {
             // Everything below this line handles the WinUtil updater.
 
             var baseAssetsPath = Path.Combine(programpath, "assets");
+            Directory.CreateDirectory(baseAssetsPath);
             var onlineverpath = Path.Combine(baseAssetsPath, "onlinever.win");
             WebClient webClient = new WebClient();
             webClient.DownloadFile("https://github.com/SteveeWasTaken/winutil/raw/main/gitVersion.txt", onlineverpath);
@@ -122,7 +100,7 @@ namespace WinUtil
             bool noLangFile = false;
             try
             {
-                lang = File.ReadAllText(Path.Combine(programpath, "WinUtilSettings", "lang.win"));
+                lang = File.ReadAllText(Path.Combine(baseAssetsPath, "settings", "lang.win"));
             }
             catch (Exception)
             {
@@ -130,7 +108,7 @@ namespace WinUtil
             }
             if (noLangFile == false)
             {
-                lang = File.ReadAllText(Path.Combine(programpath, "WinUtilSettings", "lang.win"));
+                lang = File.ReadAllText(Path.Combine(baseAssetsPath, "settings", "lang.win"));
                 if (lang == "English")
                 {
                     lang = "EN";
