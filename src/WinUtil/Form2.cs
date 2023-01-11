@@ -98,11 +98,13 @@ namespace WinUtil
         bool noFile = false;
         string lang = "";
         string programpath = Application.StartupPath;
+
         private void Form2_Load(object sender, EventArgs e)
         {
+            var baseAssetsPath = Path.Combine(programpath, "assets");
             try
             {
-                string[] colors = File.ReadAllLines(Path.Combine(programpath, "WinUtilSettings", "settings.win"));
+                string[] colors = File.ReadAllLines(Path.Combine(baseAssetsPath, "settings", "settings.win"));
             }
             catch (Exception)
             {
@@ -111,7 +113,7 @@ namespace WinUtil
 
             if (noFile == false)
             {
-                string[] colors = File.ReadAllLines(Path.Combine(programpath, "WinUtilSettings", "settings.win"));
+                string[] colors = File.ReadAllLines(Path.Combine(baseAssetsPath, "settings", "settings.win"));
                 int bgcolorR = Int32.Parse(colors[0]);
                 int bgcolorG = Int32.Parse(colors[1]);
                 int bgcolorB = Int32.Parse(colors[2]);

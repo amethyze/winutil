@@ -21,8 +21,8 @@ namespace WinUtil
             InitializeComponent();
         }
 
-        string winUtilVer = "2.0";
-        string winUtilVerXtra = " - The UI Update";
+        string winUtilVer = "2.0.1";
+        string winUtilVerXtra = " - Better Settings";
 
         public static bool IsAdministrator()
         {
@@ -84,18 +84,41 @@ namespace WinUtil
         Color txtColorDef = Color.FromArgb(255, 255, 255);
         bool noFile;
         string programpath = Application.StartupPath;
+        public string resetSettings()
+        {
+            MessageBox.Show("STARTED RESETSETTINGS");
+            var baseAssetsPath = Path.Combine(programpath, "assets");
+            string[] assetsFileList = Directory.GetFiles(baseAssetsPath, "*", SearchOption.AllDirectories);
+            MessageBox.Show("ASSETSFILELIST LENGTH OF: " + assetsFileList.Length + "\n\nFIRST ARRAY ITEM IS: " + assetsFileList[0]);
+            if (assetsFileList.Length != 0)
+            {
+                for (int i = 0; i < assetsFileList.Length; i++)
+                {
+                    File.Delete(assetsFileList[i]);
+                }
+            }
+            string programpath2 = System.Windows.Forms.Application.ExecutablePath;
+            string[] arguments = Environment.GetCommandLineArgs().Skip(1).ToArray(); // requires Linq
+            System.Diagnostics.ProcessStartInfo startinfo = new System.Diagnostics.ProcessStartInfo();
+            startinfo.FileName = programpath2;
+            startinfo.UseShellExecute = true;
+            startinfo.Arguments = string.Join(" ", arguments);
+            Process.Start(startinfo);
+            Application.Exit();
+            return null;
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
-            
             // Everything below this line handles the WinUtil updater.
-            var onlineverpath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "winutil", "onlinever.win");
-            Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "winutil"));
+
+            var baseAssetsPath = Path.Combine(programpath, "assets");
+            var onlineverpath = Path.Combine(baseAssetsPath, "onlinever.win");
             WebClient webClient = new WebClient();
             webClient.DownloadFile("https://github.com/SteveeWasTaken/winutil/raw/main/gitVersion.txt", onlineverpath);
             string[] onlinever = File.ReadAllLines(onlineverpath);
             File.Delete(onlineverpath);
             long onlineverI = long.Parse(onlinever[1]);
-            long verI = 1;
+            long verI = 2;
             bool noLangFile = false;
             try
             {
@@ -145,10 +168,10 @@ namespace WinUtil
             toolTip1.SetToolTip(taskKill, Localization.form1taskKillHelp(lang));
             toolTip1.SetToolTip(taskmgr, Localization.form1taskmgrHelp(lang));
             // Everything above this line handles translations.
-            var firstrunpath = Path.Combine(programpath, "WinUtilSettings", "firstrun");
+            var firstrunpath = Path.Combine(programpath, "assets", "settings", "firstrun");
             try
             {
-                string[] colors = File.ReadAllLines(Path.Combine(programpath, "WinUtilSettings", "settings.win"));
+                string[] colors = File.ReadAllLines(Path.Combine(baseAssetsPath, "settings", "settings.win"));
             }
             catch (Exception)
             {
@@ -157,7 +180,7 @@ namespace WinUtil
             }
             if (noFile == false)
             {
-                string[] colors = File.ReadAllLines(Path.Combine(programpath, "WinUtilSettings", "settings.win"));
+                string[] colors = File.ReadAllLines(Path.Combine(baseAssetsPath, "settings", "settings.win"));
                 int bgcolorR = Int32.Parse(colors[0]);
                 int bgcolorG = Int32.Parse(colors[1]);
                 int bgcolorB = Int32.Parse(colors[2]);
@@ -192,15 +215,54 @@ namespace WinUtil
                 fileDel.BackColor = Color.FromArgb(butbgR, butbgG, butbgB);
                 fileDel.ForeColor = Color.FromArgb(buttextR, buttextG, buttextB);
             }
+            bool isOld = true;
             try
             {
                 File.ReadAllText(firstrunpath);
             }
             catch (Exception)
             {
-                Directory.CreateDirectory(Path.Combine(programpath, "WinUtilSettings"));
-                MessageBox.Show(Localization.form1welcome(lang), Localization.form1welcomeTitle(lang), MessageBoxButtons.OK, MessageBoxIcon.Information);
-                File.WriteAllText(firstrunpath, "54 68 61 6e 6b 20 79 6f 75 20 66 6f 72 20 75 73 69 6e 67 20 57 69 6e 55 74 69 6c 21");
+                var firstrunpathOLD = Path.Combine(programpath, "WinUtilSettings", "firstrun");
+                try
+                {
+                    File.ReadAllText(firstrunpathOLD);
+                }
+                catch (Exception)
+                {
+                    isOld = false;
+                    Directory.CreateDirectory(Path.Combine(programpath, "assets", "settings"));
+                    MessageBox.Show(Localization.form1welcome(lang), Localization.form1welcomeTitle(lang), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    File.WriteAllText(firstrunpath, "54 68 61 6e 6b 20 79 6f 75 20 66 6f 72 20 75 73 69 6e 67 20 57 69 6e 55 74 69 6c 21");
+                }
+                if (isOld)
+                {
+                    Directory.CreateDirectory(Path.Combine(programpath, "assets"));
+                    try
+                    {
+                        Directory.Move(Path.Combine(programpath, "WinUtilSettings"), Path.Combine(programpath, "assets", "settings"));
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show(Localization.form1failedImport(lang, winUtilVer), Localization.error(lang), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        string[] assetsFileList = Directory.GetFiles(baseAssetsPath, "*", SearchOption.AllDirectories);
+                        if (assetsFileList.Length != 0)
+                        {
+                            for (int i = 0; i < assetsFileList.Length; i++)
+                            {
+                                File.Delete(assetsFileList[i]);
+                            }
+                        }
+                        Directory.Delete(Path.Combine(baseAssetsPath, "settings"));
+                        string programpath2 = System.Windows.Forms.Application.ExecutablePath;
+                        string[] arguments = Environment.GetCommandLineArgs().Skip(1).ToArray(); // requires Linq
+                        System.Diagnostics.ProcessStartInfo startinfo = new System.Diagnostics.ProcessStartInfo();
+                        startinfo.FileName = programpath2;
+                        startinfo.UseShellExecute = true;
+                        startinfo.Arguments = string.Join(" ", arguments);
+                        Process.Start(startinfo);
+                        Application.Exit();
+                    }
+                }
             }
             if (IsAdministrator())
             {

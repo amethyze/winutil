@@ -41,9 +41,10 @@ namespace WinUtil
         string programpath = Application.StartupPath;
         private void Form3_Load(object sender, EventArgs e)
         {
+            var baseAssetsPath = Path.Combine(programpath, "assets");
             try
             {
-                string[] colors = File.ReadAllLines(Path.Combine(programpath, "WinUtilSettings", "settings.win"));
+                string[] colors = File.ReadAllLines(Path.Combine(baseAssetsPath, "settings", "settings.win"));
             }
             catch (Exception)
             {
@@ -52,7 +53,7 @@ namespace WinUtil
             }
             try
             {
-                lang = File.ReadAllText(Path.Combine(programpath, "WinUtilSettings", "lang.win"));
+                lang = File.ReadAllText(Path.Combine(baseAssetsPath, "settings", "lang.win"));
             }
             catch (Exception)
             {
@@ -60,7 +61,7 @@ namespace WinUtil
             }
             if (noFile == false)
             {
-                string[] colors = File.ReadAllLines(Path.Combine(programpath, "WinUtilSettings", "settings.win"));
+                string[] colors = File.ReadAllLines(Path.Combine(baseAssetsPath, "settings", "settings.win"));
                 int bgcolorR = Int32.Parse(colors[0]);
                 int bgcolorG = Int32.Parse(colors[1]);
                 int bgcolorB = Int32.Parse(colors[2]);
@@ -97,7 +98,7 @@ namespace WinUtil
             }
             if (noLangFile == false)
             {
-                lang = File.ReadAllText(Path.Combine(programpath, "WinUtilSettings", "lang.win"));
+                lang = File.ReadAllText(Path.Combine(baseAssetsPath, "settings", "lang.win"));
                 comboBox1.Text = lang;
                 if (lang == "English")
                 {
@@ -176,10 +177,11 @@ namespace WinUtil
         {
 
             string programpath = Application.StartupPath;
+            var baseAssetsPath = Path.Combine(programpath, "assets");
             bool test = false;
             try
             {
-                string[] colors = File.ReadAllLines(Path.Combine(programpath, "WinUtilSettings", "settings.win"));
+                string[] colors = File.ReadAllLines(Path.Combine(baseAssetsPath, "settings", "settings.win"));
             }
             catch (Exception)
             {
@@ -191,7 +193,7 @@ namespace WinUtil
             }
             else
             {
-                string[] colors = File.ReadAllLines(Path.Combine(programpath, "WinUtilSettings", "settings.win"));
+                string[] colors = File.ReadAllLines(Path.Combine(baseAssetsPath, "settings", "settings.win"));
                 if (txtCh != true)
                 {
                     txtcolorR = colors[3];
@@ -224,17 +226,17 @@ namespace WinUtil
                 }
             }
             string[] settingsArray = new string[] { bgcolorR, bgcolorG, bgcolorB, txtcolorR, txtcolorG, txtcolorB, listboxcolR, listboxcolG, listboxcolB, buttextR, buttextG, buttextB, butbgR, butbgG, butbgB};
-            var settingsPath = Path.Combine(programpath, "WinUtilSettings", "settings.win");
+            var settingsPath = Path.Combine(baseAssetsPath, "settings", "settings.win");
             File.WriteAllLines(settingsPath, settingsArray);
             string langDrop = comboBox1.Text;
             try
             {
-                string lang = File.ReadAllText(Path.Combine(programpath, "WinUtilSettings", "lang.win"));
+                string lang = File.ReadAllText(Path.Combine(baseAssetsPath, "settings", "lang.win"));
             }
             catch (Exception)
             {
             }
-            var langPath = Path.Combine(programpath, "WinUtilSettings", "lang.win");
+            var langPath = Path.Combine(baseAssetsPath, "settings", "lang.win");
             File.WriteAllText(langPath, langDrop);
             string programpath2 = System.Windows.Forms.Application.ExecutablePath;
             string[] arguments = Environment.GetCommandLineArgs().Skip(1).ToArray(); // requires Linq
@@ -267,16 +269,29 @@ namespace WinUtil
             listboxcolG = MyDialog.Color.G.ToString();
             listboxcolB = MyDialog.Color.B.ToString();
         }
-
+        public string resetSettings()
+        {
+            var baseAssetsPath = Path.Combine(programpath, "assets");
+            File.Delete(Path.Combine(baseAssetsPath, "settings", "settings.win"));
+            string programpath2 = System.Windows.Forms.Application.ExecutablePath;
+            string[] arguments = Environment.GetCommandLineArgs().Skip(1).ToArray(); // requires Linq
+            System.Diagnostics.ProcessStartInfo startinfo = new System.Diagnostics.ProcessStartInfo();
+            startinfo.FileName = programpath2;
+            startinfo.UseShellExecute = true;
+            startinfo.Arguments = string.Join(" ", arguments);
+            Process.Start(startinfo);
+            Application.Exit();
+            return null;
+        }
         private void button5_Click(object sender, EventArgs e)
         {
-
+            var baseAssetsPath = Path.Combine(programpath, "assets");
             var Localization = new Localization();
             DialogResult delsets;
             delsets = MessageBox.Show(Localization.form3resetSettings(lang), Localization.form3resetSettingsTitle(lang), MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
             if (delsets == DialogResult.OK)
             {
-                File.Delete(Path.Combine(programpath, "WinUtilSettings", "settings.win"));
+                File.Delete(Path.Combine(baseAssetsPath, "settings", "settings.win"));
                 string programpath2 = System.Windows.Forms.Application.ExecutablePath;
                 string[] arguments = Environment.GetCommandLineArgs().Skip(1).ToArray(); // requires Linq
                 System.Diagnostics.ProcessStartInfo startinfo = new System.Diagnostics.ProcessStartInfo();
@@ -338,7 +353,8 @@ namespace WinUtil
 
         private void button6_Click(object sender, EventArgs e)
         {
-            Process.Start("explorer.exe", Path.Combine(programpath, "WinUtilSettings"));
+            var baseAssetsPath = Path.Combine(programpath, "assets");
+            Process.Start("explorer.exe", Path.Combine(baseAssetsPath, "settings"));
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -363,11 +379,13 @@ namespace WinUtil
 
         private void button9_Click(object sender, EventArgs e)
         {
+            
             string programpath = Application.StartupPath;
+            var baseAssetsPath = Path.Combine(programpath, "assets");
             bool test = false;
             try
             {
-                string[] colors = File.ReadAllLines(Path.Combine(programpath, "WinUtilSettings", "settings.win"));
+                string[] colors = File.ReadAllLines(Path.Combine(baseAssetsPath, "settings", "settings.win"));
             }
             catch (Exception)
             {
@@ -379,7 +397,7 @@ namespace WinUtil
             }
             else
             {
-                string[] colors = File.ReadAllLines(Path.Combine(programpath, "WinUtilSettings", "settings.win"));
+                string[] colors = File.ReadAllLines(Path.Combine(baseAssetsPath, "settings", "settings.win"));
                 if (txtCh != true)
                 {
                     txtcolorR = colors[3];
@@ -412,17 +430,17 @@ namespace WinUtil
                 }
             }
             string[] settingsArray = new string[] { bgcolorR, bgcolorG, bgcolorB, txtcolorR, txtcolorG, txtcolorB, listboxcolR, listboxcolG, listboxcolB, buttextR, buttextG, buttextB, butbgR, butbgG, butbgB };
-            var settingsPath = Path.Combine(programpath, "WinUtilSettings", "settings.win");
+            var settingsPath = Path.Combine(baseAssetsPath, "settings", "settings.win");
             File.WriteAllLines(settingsPath, settingsArray);
             string langDrop = comboBox1.Text;
             try
             {
-                string lang = File.ReadAllText(Path.Combine(programpath, "WinUtilSettings", "lang.win"));
+                string lang = File.ReadAllText(Path.Combine(baseAssetsPath, "settings", "lang.win"));
             }
             catch (Exception)
             {
             }
-            var langPath = Path.Combine(programpath, "WinUtilSettings", "lang.win");
+            var langPath = Path.Combine(baseAssetsPath, "settings", "lang.win");
             File.WriteAllText(langPath, langDrop);
             string programpath2 = System.Windows.Forms.Application.ExecutablePath;
             string[] arguments = Environment.GetCommandLineArgs().Skip(1).ToArray(); // requires Linq

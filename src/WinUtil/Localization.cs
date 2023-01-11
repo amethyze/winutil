@@ -443,7 +443,7 @@ namespace WinUtil
             }
             else if (lang == "ES")
             {
-                return "Estás usando WinUtil " + winUtilVer + winUtilVerXtra + ". ¡Gracias!\n\nEste programa fue desarrollado en C# por SteveeWasTaken. Encuentra el link para mi GitHub en Configuración (en inglés).";
+                return "Estás usando WinUtil " + winUtilVer + winUtilVerXtra + ". ¡Gracias!\n\nEste programa fue desarrollado en C# por SteveeWasTaken. Encuentra el link de mi GitHub en Configuración (en inglés).";
             }
             else
             {
@@ -851,6 +851,21 @@ namespace WinUtil
             else if (lang == "ES")
             {
                 return "El programa no se pudo detener. Acceso denegado.";
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public string form1failedImport(string lang, string winutilver)
+        {
+            if (lang == "EN")
+            {
+                return "Something went wrong while importing your settings from WinUtil v2.0 to WinUtil " + winutilver + ". We will attempt to fix them. If this window appears a second time, delete your \"assets\" folder and your \"WinUtilSettings\" folder. WARNING: Your settings will be reset.";
+            }
+            else if (lang == "ES")
+            {
+                return "Algo salió mal mientras importábamos tus configuraciones de WinUtil v2.0 a WinUtil " + winutilver + ". Vamos a intentar arreglarlas.\n\nSi esta ventana aparece una segunda vez, elimina la carpeta \"assets\" y la carpeta \"WinUtilSettings\". ADVERTENCIA: Se reiniciará tu configuración.";
             }
             else
             {
